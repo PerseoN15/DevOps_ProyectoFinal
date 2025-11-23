@@ -49,6 +49,17 @@ pipeline {
             }
         }
 
+        stage('Security - SAST (Semgrep)') {
+            steps {
+                echo "Ejecutando análisis SAST con Semgrep sobre frontend/src..."
+                sh """
+                    pip3 install --user semgrep --break-system-packages --ignore-installed || true
+                    semgrep --config auto frontend/src > semgrep-report.txt || true
+                    cat semgrep-report.txt || true
+                """
+            }
+        }
+
         stage('Security - Secret Scanning') {
             steps {
                 echo "Buscando secretos sensibles en el repositorio (ignorando node_modules)..."
@@ -64,6 +75,23 @@ pipeline {
             steps {
                 echo "Analizando archivos IaC con Checkov..."
                 sh "checkov -d infra || true"
+            }
+        }
+
+        stage('Security - Hardening checks') {
+            steps {
+                echo "Ejecutando validaciones de hardening..."
+                sh """
+                    echo "Verificando que no exista archivo .env en el repositorio..."
+                    if [ -f ".env" ]; then
+                        echo "ADVERTENCIA: Se encontró un archivo .env. No debe subirse al repositorio."
+                    else
+                        echo "OK: No hay archivo .env expuesto."
+                    fi
+
+                    echo "Verificando permisos inseguros..."
+                    find . -type f -perm 777 -exec echo "Archivo con permisos inseguros: {}" \\; || true
+                """
             }
         }
     }
