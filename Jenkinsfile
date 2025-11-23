@@ -39,6 +39,33 @@ pipeline {
                 }
             }
         }
+
+        stage('Security - npm audit') {
+            steps {
+                dir("${APP_DIR}") {
+                    echo "Ejecutando npm audit..."
+                    sh "npm audit --audit-level=high || true"
+                }
+            }
+        }
+
+        stage('Security - Secret Scanning') {
+            steps {
+                echo "Buscando secretos sensibles en el repositorio..."
+                sh """
+                    pip3 install detect-secrets --break-system-packages --ignore-installed
+                    detect-secrets scan > .secrets.baseline || true
+                    detect-secrets audit .secrets.baseline || true
+                """
+            }
+        }
+
+        stage('Security - IaC Checkov') {
+            steps {
+                echo "Analizando archivos IaC con Checkov..."
+                sh "checkov -d infra || true"
+            }
+        }
     }
 
     post {
