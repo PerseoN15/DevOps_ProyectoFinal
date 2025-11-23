@@ -51,11 +51,11 @@ pipeline {
 
         stage('Security - Secret Scanning') {
             steps {
-                echo "Buscando secretos sensibles en el repositorio..."
+                echo "Buscando secretos sensibles en el repositorio (ignorando node_modules)..."
                 sh """
-                    pip3 install detect-secrets --break-system-packages --ignore-installed
-                    detect-secrets scan > .secrets.baseline || true
-                    detect-secrets audit .secrets.baseline || true
+                    pip3 install --user detect-secrets --break-system-packages --ignore-installed || true
+                    detect-secrets scan --all-files --exclude-files '.*node_modules.*' > detect-secrets-report.json || true
+                    cat detect-secrets-report.json || true
                 """
             }
         }
