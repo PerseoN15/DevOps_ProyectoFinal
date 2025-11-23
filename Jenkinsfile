@@ -54,7 +54,7 @@ pipeline {
                 echo "Ejecutando análisis SAST con Semgrep sobre frontend/src..."
                 sh """
                     pip3 install --user semgrep --break-system-packages --ignore-installed || true
-                    semgrep --config auto frontend/src > semgrep-report.txt || true
+                    ~/.local/bin/semgrep --config auto frontend/src > semgrep-report.txt || true
                     cat semgrep-report.txt || true
                 """
             }
