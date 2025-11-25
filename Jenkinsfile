@@ -103,36 +103,37 @@ pipeline {
             steps {
                 echo "Realizando deploy automático en EC2..."
 
-                sshagent(credentials: ['ec2-jenkins-key']) {   // <-- ID de tu credencial SSH en Jenkins
+                // Usa la credencial SSH con ID 'ec2-jenkins-key'
+                sshagent(credentials: ['ec2-jenkins-key']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
-                          echo ">> Entrando a la instancia EC2..."
-                          
-                          cd DevOps_ProyectoFinal
+ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
+  echo ">> Entrando a la instancia EC2..."
 
-                          echo ">> Actualizando repositorio..."
-                          git pull
+  cd DevOps_ProyectoFinal
 
-                          echo ">> Backend: instalando dependencias..."
-                          cd backend
-                          npm install
+  echo ">> Actualizando repositorio..."
+  git pull
 
-                          echo ">> Reiniciando backend con PM2..."
-                          pm2 restart backend || pm2 start index.js --name backend
-                          pm2 save
+  echo ">> Backend: instalando dependencias..."
+  cd backend
+  npm install
 
-                          echo ">> Frontend: construyendo producción..."
-                          cd ../frontend
-                          npm install
-                          npm run build
+  echo ">> Reiniciando backend con PM2..."
+  pm2 restart backend || pm2 start index.js --name backend
+  pm2 save
 
-                          echo ">> Reiniciando frontend con PM2..."
-                          cd dist
-                          pm2 restart frontend || pm2 start "npx serve -s . -l 80" --name frontend
-                          pm2 save
+  echo ">> Frontend: construyendo producción..."
+  cd ../frontend
+  npm install
+  npm run build
 
-                          echo ">> DEPLOY COMPLETADO EXITOSAMENTE"
-                        EOF
+  echo ">> Reiniciando frontend con PM2..."
+  cd dist
+  pm2 restart frontend || pm2 start "npx serve -s . -l 80" --name frontend
+  pm2 save
+
+  echo ">> DEPLOY COMPLETADO EXITOSAMENTE"
+EOF
                     '''
                 }
             }
