@@ -6,6 +6,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo "Realizando checkout del repositorio..."
@@ -92,6 +93,48 @@ pipeline {
                     echo "Verificando permisos inseguros..."
                     find . -type f -perm 777 -exec echo "Archivo con permisos inseguros: {}" \\; || true
                 """
+            }
+        }
+
+        /* ============================================================
+         *   NUEVO STAGE: DEPLOY A AWS EC2
+         * ============================================================ */
+        stage('Deploy to EC2') {
+            steps {
+                echo "Realizando deploy automático en EC2..."
+
+                sshagent(credentials: ['ec2-user']) {   // <-- ID de tu credencial SSH en Jenkins
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
+                          echo ">> Entrando a la instancia EC2..."
+                          
+                          cd DevOps_ProyectoFinal
+
+                          echo ">> Actualizando repositorio..."
+                          git pull
+
+                          echo ">> Backend: instalando dependencias..."
+                          cd backend
+                          npm install
+
+                          echo ">> Reiniciando backend con PM2..."
+                          pm2 restart backend || pm2 start index.js --name backend
+                          pm2 save
+
+                          echo ">> Frontend: construyendo producción..."
+                          cd ../frontend
+                          npm install
+                          npm run build
+
+                          echo ">> Reiniciando frontend con PM2..."
+                          cd dist
+                          pm2 restart frontend || pm2 start "npx serve -s . -l 80" --name frontend
+                          pm2 save
+
+                          echo ">> DEPLOY COMPLETADO EXITOSAMENTE"
+                        EOF
+                    '''
+                }
             }
         }
     }
