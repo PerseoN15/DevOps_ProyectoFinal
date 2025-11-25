@@ -103,7 +103,7 @@ pipeline {
             steps {
                 echo "Realizando deploy automático en EC2..."
 
-                sshagent(credentials: ['ec2-user']) {   // <-- ID de tu credencial SSH en Jenkins
+                sshagent(credentials: ['ec2-jenkins-key']) {   // <-- ID de tu credencial SSH en Jenkins
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
                           echo ">> Entrando a la instancia EC2..."
