@@ -97,7 +97,37 @@ pipeline {
         }
 
         /* ============================================================
-         *   NUEVO STAGE: DEPLOY A AWS EC2
+         *   NUEVO STAGE: ACTUALIZAR VERSIÓN DEL BACKEND EN EC2
+         * ============================================================ */
+        stage('Actualizar versión del backend') {
+            steps {
+                echo "Actualizando archivo backend_version.txt en EC2..."
+                sshagent(credentials: ['ec2-jenkins-key']) {
+                    sh '''
+ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
+  cd DevOps_ProyectoFinal/backend
+
+  VERSION_FILE="backend_version.txt"
+
+  # Si no existe, lo creamos en 0
+  if [ ! -f "$VERSION_FILE" ]; then
+    echo "0" > "$VERSION_FILE"
+  fi
+
+  CURRENT_VERSION=$(cat "$VERSION_FILE")
+  NEXT_VERSION=$((CURRENT_VERSION + 1))
+
+  echo "$NEXT_VERSION" > "$VERSION_FILE"
+
+  echo ">> Versión de backend actualizada a: $NEXT_VERSION"
+EOF
+                    '''
+                }
+            }
+        }
+
+        /* ============================================================
+         *   STAGE: DEPLOY A AWS EC2
          * ============================================================ */
         stage('Deploy to EC2') {
             steps {
