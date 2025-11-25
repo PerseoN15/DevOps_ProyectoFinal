@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Datos de ejemplo en memoria
 let tasks = [
-  { id: 1, title: "Tarea " },
+  { id: 1, title: "Taea " },
   { id: 2, title: "Tarea de ejemplo " },
 ];
 
