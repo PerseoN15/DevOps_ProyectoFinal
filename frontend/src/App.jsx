@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API_URL = "http://3.15.205.151:4000";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function App() {
   const [mensaje, setMensaje] = useState("");
