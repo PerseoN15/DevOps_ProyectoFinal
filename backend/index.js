@@ -11,7 +11,7 @@ app.use(express.json());
 // Datos de ejemplo en memoria
 let tasks = [
   { id: 1, title: "Tarea de ejemplo 1" },
-  { id: 2, title: "Tarea de ejemplo 2" },
+  { id: 2, title: "Tarea de ejemplo " },
 ];
 
 // Endpoint raíz para probar conexión
