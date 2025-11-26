@@ -97,7 +97,8 @@ pipeline {
         }
 
         /* ============================================================
-         *   NUEVO STAGE: ACTUALIZAR VERSIÓN DEL BACKEND EN EC2
+         *   STAGE: ACTUALIZAR VERSIÓN DEL BACKEND EN EC2
+         *   (OJO: este archivo luego será sobreescrito por el reset)
          * ============================================================ */
         stage('Actualizar versión del backend') {
             steps {
@@ -127,22 +128,25 @@ EOF
         }
 
         /* ============================================================
-         *   STAGE: DEPLOY A AWS EC2
+         *   STAGE: DEPLOY A AWS EC2 (con reset fuerte del repo)
          * ============================================================ */
         stage('Deploy to EC2') {
             steps {
                 echo "Realizando deploy automático en EC2..."
 
-                // Usa la credencial SSH con ID 'ec2-jenkins-key'
                 sshagent(credentials: ['ec2-jenkins-key']) {
                     sh '''
 ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
+  set -e
+
   echo ">> Entrando a la instancia EC2..."
 
   cd DevOps_ProyectoFinal
 
-  echo ">> Actualizando repositorio..."
-  git pull
+  echo ">> Forzando sincronización con GitHub..."
+  git fetch origin main
+  git reset --hard origin/main
+  git clean -fd
 
   echo ">> Backend: instalando dependencias..."
   cd backend
