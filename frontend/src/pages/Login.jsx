@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import API_URL from "../config/api";
-import "./Login.css"; // Archivo CSS para los estilos
+import "./WelcomePage.css"; // Archivo CSS para los estilos
 
-function Login() {
+function WelcomePage() {
+  const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -38,6 +39,11 @@ function Login() {
 
       if (resp.ok && data.ok) {
         setMensaje(data.message || "Inicio de sesión correctamente");
+        // Aquí podrías redirigir después de un login exitoso
+        setTimeout(() => {
+          setShowLogin(false);
+          setMensaje("");
+        }, 2000);
       } else {
         setMensaje(data.message || "Usuario o contraseña incorrectos");
       }
@@ -50,8 +56,9 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-background">
+    <div className="welcome-container">
+      {/* Fondo animado */}
+      <div className="background-animation">
         <div className="floating-shapes">
           <div className="shape shape-1"></div>
           <div className="shape shape-2"></div>
@@ -59,64 +66,124 @@ function Login() {
           <div className="shape shape-4"></div>
         </div>
       </div>
-      
-      <div className="login-card">
-        <div className="login-header">
-          <h1 className="welcome-title">Bienvenidos al Sistema de Tutorías</h1>
-          <p className="welcome-subtitle">Por favor, inicie sesión</p>
+
+      {/* Contenido principal */}
+      <div className="welcome-content">
+        <header className="welcome-header">
+          <h1 className="main-title">Sistema de Tutorías</h1>
+          <p className="subtitle">Plataforma educativa integral para estudiantes y tutores</p>
+        </header>
+
+        <div className="welcome-card">
+          <h2 className="welcome-message">¡Bienvenido!</h2>
+          <p className="welcome-description">
+            Accede a tu cuenta o regístrate para comenzar a utilizar todas las funcionalidades del sistema.
+          </p>
+
+          <div className="button-container">
+            <button 
+              className="welcome-button login-btn"
+              onClick={() => setShowLogin(true)}
+            >
+              Iniciar Sesión
+            </button>
+            <button 
+              className="welcome-button register-btn"
+              onClick={() => alert("Funcionalidad de registro en desarrollo")}
+            >
+              Registrarse
+            </button>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <div className="input-container">
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="form-input"
-                placeholder=" "
-              />
-              <label htmlFor="username" className="form-label">Usuario</label>
-              <div className="input-underline"></div>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="input-container">
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="form-input"
-                placeholder=" "
-              />
-              <label htmlFor="password" className="form-label">Contraseña</label>
-              <div className="input-underline"></div>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={cargando}
-            className={`login-button ${cargando ? 'loading' : ''}`}
-          >
-            <span className="button-text">
-              {cargando ? "Verificando..." : "Entrar"}
-            </span>
-            <div className="button-loader"></div>
-          </button>
-        </form>
-
-        {mensaje && (
-          <div className={`message ${mensaje.includes("correctamente") ? 'success' : 'error'}`}>
-            {mensaje}
-          </div>
-        )}
+        <footer className="welcome-footer">
+          <p>¿Necesitas ayuda? <a href="#contact">Contáctanos</a></p>
+        </footer>
       </div>
+
+      {/* Modal de Login */}
+      {showLogin && (
+        <div className="modal-overlay" onClick={() => setShowLogin(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="close-button"
+              onClick={() => setShowLogin(false)}
+            >
+              ×
+            </button>
+
+            <div className="login-header">
+              <h2>Iniciar Sesión</h2>
+              <p>Ingresa tus credenciales para acceder al sistema</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="login-form">
+              <div className="form-group">
+                <div className="input-container">
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="form-input"
+                    placeholder=" "
+                  />
+                  <label htmlFor="username" className="form-label">Usuario</label>
+                  <div className="input-underline"></div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="input-container">
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="form-input"
+                    placeholder=" "
+                  />
+                  <label htmlFor="password" className="form-label">Contraseña</label>
+                  <div className="input-underline"></div>
+                </div>
+              </div>
+
+              <div className="form-options">
+                <label className="remember-me">
+                  <input type="checkbox" />
+                  <span>Recordar sesión</span>
+                </label>
+                <a href="#forgot" className="forgot-password">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+
+              <button
+                type="submit"
+                disabled={cargando}
+                className={`login-button ${cargando ? 'loading' : ''}`}
+              >
+                <span className="button-text">
+                  {cargando ? "Verificando..." : "Entrar"}
+                </span>
+                <div className="button-loader"></div>
+              </button>
+            </form>
+
+            {mensaje && (
+              <div className={`message ${mensaje.includes("correctamente") ? 'success' : 'error'}`}>
+                {mensaje}
+              </div>
+            )}
+
+            <div className="modal-footer">
+              <p>¿No tienes cuenta? <a href="#register">Regístrate aquí</a></p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Login;
+export default WelcomePage;
