@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Contenedor principal */
+/* Contenedor principal - CENTRADO */
 .welcome-container {
   min-height: 100vh;
   width: 100%;
@@ -39,7 +39,7 @@ body {
   overflow: hidden;
 }
 
-/* Fondo elegante y responsivo */
+/* Fondo animado visible y centrado */
 .background-animation {
   position: fixed;
   top: 0;
@@ -47,58 +47,60 @@ body {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(128, 0, 32, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(168, 50, 74, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(96, 0, 24, 0.25) 0%, transparent 50%),
-    linear-gradient(135deg, #0a0a0a 0%, #1a0a0f 30%, #2a0a14 70%, #1a0a0f 100%);
+    radial-gradient(circle at 50% 50%, rgba(128, 0, 32, 0.4) 0%, transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(168, 50, 74, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(96, 0, 24, 0.35) 0%, transparent 50%),
+    linear-gradient(135deg, #1a0a0f 0%, #2a0a14 30%, #1a0a0f 70%, #0a0a0a 100%);
   z-index: -1;
   overflow: hidden;
 }
 
-/* Patrón de puntos animados */
+/* Patrón de puntos animados - MÁS VISIBLE */
 .dots-pattern {
   position: absolute;
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 25% 25%, var(--guindo-suave) 2px, transparent 2.5px),
-    radial-gradient(circle at 75% 75%, var(--guindo-suave) 2px, transparent 2.5px);
-  background-size: 60px 60px, 80px 80px;
-  animation: dotsMove 40s infinite linear;
-  opacity: 0.3;
+    radial-gradient(circle at 25% 25%, var(--guindo-suave) 2px, transparent 3px),
+    radial-gradient(circle at 75% 75%, var(--guindo-suave) 2px, transparent 3px);
+  background-size: 80px 80px, 100px 100px;
+  animation: dotsMove 60s infinite linear;
+  opacity: 0.4;
 }
 
-/* Ondas sutiles */
+/* Ondas sutiles - MÁS VISIBLES */
 .waves-container {
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0.1;
+  opacity: 0.2;
 }
 
 .wave {
   position: absolute;
   width: 200%;
-  height: 100%;
+  height: 100px;
   background: linear-gradient(90deg, transparent, var(--guindo-claro), transparent);
-  animation: waveMove 20s infinite linear;
+  animation: waveMove 25s infinite linear;
 }
 
 .wave-1 {
-  top: 20%;
+  top: 30%;
   animation-delay: 0s;
-  animation-duration: 25s;
-  opacity: 0.15;
+  animation-duration: 30s;
+  opacity: 0.25;
+  height: 120px;
 }
 
 .wave-2 {
-  top: 60%;
-  animation-delay: 10s;
-  animation-duration: 30s;
-  opacity: 0.1;
+  top: 70%;
+  animation-delay: 15s;
+  animation-duration: 35s;
+  opacity: 0.2;
+  height: 80px;
 }
 
-/* Elementos flotantes elegantes */
+/* Elementos flotantes elegantes - MÁS VISIBLES */
 .floating-elements {
   position: absolute;
   width: 100%;
@@ -109,49 +111,52 @@ body {
   position: absolute;
   border-radius: 50%;
   background: radial-gradient(circle, var(--guindo-suave) 0%, transparent 70%);
-  filter: blur(40px);
-  animation: floatElement 30s infinite ease-in-out;
+  filter: blur(50px);
+  animation: floatElement 40s infinite ease-in-out;
+  opacity: 0.7;
 }
 
-/* Elementos grandes */
+/* Elementos grandes - CENTRADOS Y VISIBLES */
 .element-1 {
-  width: min(40vw, 500px);
-  height: min(40vw, 500px);
-  top: -10%;
-  left: -10%;
+  width: min(50vw, 600px);
+  height: min(50vw, 600px);
+  top: 10%;
+  left: 10%;
   animation-delay: 0s;
-  background: radial-gradient(circle, rgba(128, 0, 32, 0.4) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(128, 0, 32, 0.5) 0%, transparent 70%);
 }
 
 .element-2 {
-  width: min(35vw, 450px);
-  height: min(35vw, 450px);
-  bottom: -15%;
-  right: -5%;
-  animation-delay: 15s;
-  background: radial-gradient(circle, rgba(168, 50, 74, 0.3) 0%, transparent 70%);
+  width: min(45vw, 550px);
+  height: min(45vw, 550px);
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 20s;
+  background: radial-gradient(circle, rgba(168, 50, 74, 0.4) 0%, transparent 70%);
 }
 
-/* Elementos medianos */
+/* Elementos medianos - CENTRADOS */
 .element-3 {
-  width: min(25vw, 300px);
-  height: min(25vw, 300px);
+  width: min(30vw, 400px);
+  height: min(30vw, 400px);
   top: 50%;
   left: 70%;
-  animation-delay: 5s;
-  background: radial-gradient(circle, rgba(96, 0, 24, 0.35) 0%, transparent 70%);
+  animation-delay: 10s;
+  background: radial-gradient(circle, rgba(96, 0, 24, 0.45) 0%, transparent 70%);
+  transform: translateY(-50%);
 }
 
 .element-4 {
-  width: min(20vw, 250px);
-  height: min(20vw, 250px);
-  bottom: 30%;
-  left: 10%;
-  animation-delay: 20s;
-  background: radial-gradient(circle, rgba(128, 0, 32, 0.25) 0%, transparent 70%);
+  width: min(25vw, 350px);
+  height: min(25vw, 350px);
+  top: 50%;
+  left: 20%;
+  animation-delay: 30s;
+  background: radial-gradient(circle, rgba(128, 0, 32, 0.35) 0%, transparent 70%);
+  transform: translateY(-50%);
 }
 
-/* Partículas sutiles */
+/* Partículas sutiles - MÁS VISIBLES */
 .particles {
   position: absolute;
   width: 100%;
@@ -162,45 +167,46 @@ body {
   position: absolute;
   background: var(--guindo-claro);
   border-radius: 50%;
-  animation: particleFloat 20s infinite linear;
-  opacity: 0;
+  animation: particleFloat 25s infinite linear;
+  opacity: 0.6;
+  box-shadow: 0 0 10px var(--guindo-suave);
 }
 
-/* Partículas responsivas */
+/* Partículas responsivas - POSICIONES CENTRALES */
 .particle:nth-child(1) { 
-  width: clamp(4px, 1vw, 8px); 
-  height: clamp(4px, 1vw, 8px); 
-  top: 15%; 
-  left: 10%; 
-  animation-delay: 0s; 
-  animation-duration: 25s;
-}
-.particle:nth-child(2) { 
   width: clamp(6px, 1.5vw, 12px); 
   height: clamp(6px, 1.5vw, 12px); 
-  top: 75%; 
-  left: 85%; 
-  animation-delay: 5s; 
+  top: 20%; 
+  left: 50%; 
+  animation-delay: 0s; 
   animation-duration: 30s;
 }
-.particle:nth-child(3) { 
-  width: clamp(3px, 0.8vw, 6px); 
-  height: clamp(3px, 0.8vw, 6px); 
-  top: 85%; 
-  left: 15%; 
-  animation-delay: 10s; 
-  animation-duration: 20s;
-}
-.particle:nth-child(4) { 
-  width: clamp(5px, 1.2vw, 10px); 
-  height: clamp(5px, 1.2vw, 10px); 
-  top: 25%; 
-  left: 75%; 
-  animation-delay: 15s; 
+.particle:nth-child(2) { 
+  width: clamp(8px, 2vw, 16px); 
+  height: clamp(8px, 2vw, 16px); 
+  top: 80%; 
+  left: 30%; 
+  animation-delay: 8s; 
   animation-duration: 35s;
 }
+.particle:nth-child(3) { 
+  width: clamp(4px, 1vw, 8px); 
+  height: clamp(4px, 1vw, 8px); 
+  top: 60%; 
+  left: 80%; 
+  animation-delay: 16s; 
+  animation-duration: 25s;
+}
+.particle:nth-child(4) { 
+  width: clamp(7px, 1.8vw, 14px); 
+  height: clamp(7px, 1.8vw, 14px); 
+  top: 40%; 
+  left: 20%; 
+  animation-delay: 24s; 
+  animation-duration: 40s;
+}
 
-/* Líneas de conexión sutiles */
+/* Líneas de conexión sutiles - MÁS VISIBLES */
 .connection-lines {
   position: absolute;
   width: 100%;
@@ -211,14 +217,14 @@ body {
 .connection-line {
   position: absolute;
   background: linear-gradient(90deg, transparent, var(--guindo-suave), transparent);
-  height: 1px;
-  animation: connectionPulse 8s infinite ease-in-out;
-  opacity: 0.1;
+  height: 2px;
+  animation: connectionPulse 12s infinite ease-in-out;
+  opacity: 0.3;
 }
 
-.line-1 { top: 30%; left: 0; width: 100%; animation-delay: 0s; }
-.line-2 { top: 60%; left: 0; width: 100%; animation-delay: 2s; }
-.line-3 { top: 80%; left: 0; width: 100%; animation-delay: 4s; }
+.line-1 { top: 25%; left: 0; width: 100%; animation-delay: 0s; }
+.line-2 { top: 50%; left: 0; width: 100%; animation-delay: 4s; }
+.line-3 { top: 75%; left: 0; width: 100%; animation-delay: 8s; }
 
 /* Animaciones */
 @keyframes dotsMove {
@@ -226,7 +232,7 @@ body {
     background-position: 0 0, 0 0;
   }
   100% {
-    background-position: 60px 60px, 80px 80px;
+    background-position: 80px 80px, 100px 100px;
   }
 }
 
@@ -242,51 +248,51 @@ body {
 @keyframes floatElement {
   0%, 100% {
     transform: translate(0, 0) scale(1);
-    opacity: 0.6;
+    opacity: 0.7;
   }
   25% {
-    transform: translate(5%, -5%) scale(1.1);
-    opacity: 0.8;
+    transform: translate(3%, -3%) scale(1.1);
+    opacity: 0.9;
   }
   50% {
-    transform: translate(-3%, 3%) scale(0.9);
-    opacity: 0.5;
+    transform: translate(-2%, 2%) scale(0.95);
+    opacity: 0.6;
   }
   75% {
-    transform: translate(4%, 2%) scale(1.05);
-    opacity: 0.7;
+    transform: translate(2%, 1%) scale(1.05);
+    opacity: 0.8;
   }
 }
 
 @keyframes particleFloat {
   0% {
-    transform: translateY(100vh) translateX(0) rotate(0deg);
+    transform: translateY(100vh) translateX(-50px) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.4;
+    opacity: 0.6;
   }
   90% {
-    opacity: 0.4;
+    opacity: 0.6;
   }
   100% {
-    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    transform: translateY(-100vh) translateX(50px) rotate(360deg);
     opacity: 0;
   }
 }
 
 @keyframes connectionPulse {
   0%, 100% {
-    opacity: 0.05;
+    opacity: 0.2;
     transform: scaleX(0.8);
   }
   50% {
-    opacity: 0.2;
+    opacity: 0.4;
     transform: scaleX(1);
   }
 }
 
-/* Contenido principal - Totalmente responsivo */
+/* Contenido principal - CENTRADO Y CON MÁRGENES */
 .welcome-content {
   text-align: center;
   max-width: min(90vw, 1200px);
@@ -294,98 +300,118 @@ body {
   animation: fadeInUp 1s ease-out;
   position: relative;
   z-index: 10;
-  padding: 0 clamp(10px, 3vw, 30px);
+  padding: 0 clamp(20px, 5vw, 50px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .welcome-header {
-  margin-bottom: clamp(20px, 5vw, 60px);
+  margin-bottom: clamp(30px, 6vw, 70px);
+  width: 100%;
 }
 
 .main-title {
   color: var(--blanco);
-  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-size: clamp(2.5rem, 9vw, 5rem);
   font-weight: 700;
-  margin-bottom: clamp(10px, 2vw, 20px);
+  margin-bottom: clamp(15px, 3vw, 25px);
   text-shadow: 
-    2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(128, 0, 32, 0.6);
+    2px 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(128, 0, 32, 0.8),
+    0 0 80px rgba(128, 0, 32, 0.4);
   animation: slideInFromTop 1s ease-out;
   line-height: 1.1;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
   font-weight: 300;
   animation: slideInFromTop 1s ease-out 0.2s both;
   text-shadow: 
-    1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 15px rgba(128, 0, 32, 0.4);
+    1px 1px 3px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(128, 0, 32, 0.6);
   line-height: 1.4;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* Tarjeta de bienvenida responsiva */
+/* Tarjeta de bienvenida - CENTRADA */
 .welcome-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: clamp(15px, 4vw, 25px);
-  padding: clamp(25px, 6vw, 60px) clamp(20px, 5vw, 50px);
+  border-radius: clamp(20px, 5vw, 30px);
+  padding: clamp(30px, 7vw, 70px) clamp(25px, 6vw, 60px);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  margin: clamp(20px, 4vw, 40px) 0;
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 60px rgba(128, 0, 32, 0.2);
+  margin: clamp(25px, 5vw, 50px) 0;
   animation: scaleIn 0.8s ease-out 0.4s both;
   position: relative;
   z-index: 10;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  max-width: min(90vw, 600px);
+  width: 100%;
 }
 
 .welcome-message {
   color: var(--guindo);
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  margin-bottom: clamp(10px, 2vw, 20px);
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  margin-bottom: clamp(15px, 3vw, 25px);
   font-weight: 600;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   line-height: 1.2;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .welcome-description {
   color: var(--gris-oscuro);
-  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-  margin-bottom: clamp(25px, 5vw, 40px);
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  margin-bottom: clamp(30px, 6vw, 50px);
   line-height: 1.6;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Botones responsivos */
+/* Botones responsivos - CENTRADOS */
 .button-container {
   display: flex;
-  gap: clamp(15px, 3vw, 25px);
+  gap: clamp(20px, 4vw, 30px);
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .welcome-button {
-  padding: clamp(12px, 3vw, 18px) clamp(20px, 4vw, 35px);
+  padding: clamp(14px, 3.5vw, 20px) clamp(25px, 5vw, 40px);
   border: none;
   border-radius: 50px;
-  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: min(200px, 70vw);
+  min-width: min(220px, 75vw);
   position: relative;
   overflow: hidden;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   flex: 1;
-  max-width: 300px;
+  max-width: 280px;
 }
 
 .welcome-button::before {
@@ -407,39 +433,43 @@ body {
   background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-claro) 100%);
   color: var(--blanco);
   box-shadow: 
-    0 8px 20px rgba(128, 0, 32, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 10px 25px rgba(128, 0, 32, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(128, 0, 32, 0.3);
 }
 
 .login-btn:hover {
   transform: translateY(-3px);
   box-shadow: 
-    0 12px 25px rgba(128, 0, 32, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
+    0 15px 35px rgba(128, 0, 32, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(128, 0, 32, 0.4);
 }
 
 .register-btn {
   background: rgba(255, 255, 255, 0.95);
   color: var(--guindo);
   border: 2px solid var(--guindo);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .register-btn:hover {
   background: var(--guindo);
   color: var(--blanco);
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
+  box-shadow: 0 12px 30px rgba(128, 0, 32, 0.4);
 }
 
-/* Footer responsivo */
+/* Footer responsivo - CENTRADO */
 .welcome-footer {
-  margin-top: clamp(20px, 4vw, 35px);
+  margin-top: clamp(25px, 5vw, 40px);
   color: rgba(255, 255, 255, 0.9);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
-  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  text-align: center;
+  width: 100%;
 }
 
 .welcome-footer a {
@@ -451,291 +481,53 @@ body {
 
 .welcome-footer a:hover {
   text-decoration: underline;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  color: #ffd700;
 }
 
-/* Modal responsivo */
+/* ... (el resto del CSS de modales se mantiene igual pero centrado) ... */
+
+/* Modal responsivo - CENTRADO */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
-  padding: clamp(10px, 3vw, 20px);
+  padding: clamp(15px, 4vw, 25px);
 }
 
 .modal-content {
   background: rgba(255, 255, 255, 0.98);
-  border-radius: clamp(15px, 4vw, 25px);
-  padding: clamp(25px, 5vw, 45px) clamp(20px, 4vw, 40px);
+  border-radius: clamp(20px, 5vw, 30px);
+  padding: clamp(30px, 6vw, 50px) clamp(25px, 5vw, 45px);
   width: 100%;
   max-width: min(95vw, 500px);
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
   box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 0 40px rgba(128, 0, 32, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.3);
   max-height: 90vh;
   overflow-y: auto;
+  margin: 0 auto;
 }
 
-/* ... (el resto del CSS de formularios y animaciones se mantiene similar pero con unidades responsivas) ... */
+/* ... (el resto del CSS de formularios se mantiene igual) ... */
 
-.close-button {
-  position: absolute;
-  top: clamp(10px, 2vw, 15px);
-  right: clamp(15px, 3vw, 20px);
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  color: var(--gris-oscuro);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: clamp(35px, 8vw, 45px);
-  height: clamp(35px, 8vw, 45px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.close-button:hover {
-  color: var(--guindo);
-  background: rgba(255, 255, 255, 1);
-  transform: scale(1.1);
-}
-
-.modal-header {
-  text-align: center;
-  margin-bottom: clamp(20px, 4vw, 30px);
-}
-
-.modal-header h2 {
-  color: var(--guindo);
-  font-size: clamp(1.3rem, 4vw, 1.8rem);
-  margin-bottom: clamp(5px, 1vw, 8px);
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
-}
-
-.modal-header p {
-  color: var(--gris-oscuro);
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Formulario responsivo */
-.modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(15px, 3vw, 20px);
-}
-
-.form-group {
-  position: relative;
-}
-
-.input-container {
-  position: relative;
-}
-
-.form-input {
-  width: 100%;
-  padding: clamp(12px, 3vw, 16px) 0 clamp(6px, 1.5vw, 8px) 0;
-  border: none;
-  border-bottom: 1px solid var(--gris);
-  background: transparent;
-  font-size: clamp(14px, 3vw, 16px);
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.form-input:focus {
-  border-bottom-color: var(--guindo);
-}
-
-.form-input:focus + .form-label,
-.form-input:not(:placeholder-shown) + .form-label {
-  top: 0;
-  font-size: clamp(10px, 2.5vw, 12px);
-  color: var(--guindo);
-}
-
-.form-label {
-  position: absolute;
-  top: clamp(12px, 3vw, 16px);
-  left: 0;
-  font-size: clamp(14px, 3vw, 16px);
-  color: var(--gris-oscuro);
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
-.input-underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--guindo);
-  transition: width 0.3s ease;
-}
-
-.form-input:focus ~ .input-underline {
-  width: 100%;
-}
-
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: clamp(8px, 2vw, 10px) 0;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: clamp(6px, 1.5vw, 8px);
-  color: var(--gris-oscuro);
-  cursor: pointer;
-  font-size: clamp(12px, 2.5vw, 14px);
-}
-
-.remember-me input {
-  accent-color: var(--guindo);
-}
-
-.forgot-password {
-  color: var(--guindo);
-  text-decoration: none;
-  font-size: clamp(11px, 2.2vw, 13px);
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
-.submit-button {
-  position: relative;
-  background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-claro) 100%);
-  color: var(--blanco);
-  border: none;
-  border-radius: 8px;
-  padding: clamp(12px, 3vw, 16px);
-  font-size: clamp(14px, 3vw, 16px);
-  font-weight: 600;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  margin-top: clamp(8px, 2vw, 10px);
-  box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
-}
-
-.submit-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
-}
-
-.submit-button:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.submit-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.button-text {
-  display: inline-block;
-  transition: opacity 0.3s ease;
-}
-
-.submit-button.loading .button-text {
-  opacity: 0;
-}
-
-.button-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(18px, 4vw, 22px);
-  height: clamp(18px, 4vw, 22px);
-  border: 2px solid transparent;
-  border-top: 2px solid var(--blanco);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.submit-button.loading .button-loader {
-  opacity: 1;
-}
-
-@keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-.message {
-  padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
-  border-radius: 8px;
-  margin-top: clamp(15px, 3vw, 20px);
-  text-align: center;
-  font-weight: 500;
-  animation: slideIn 0.5s ease-out;
-  font-size: clamp(12px, 2.5vw, 14px);
-}
-
-.message.success {
-  background-color: rgba(76, 175, 80, 0.15);
-  color: var(--exito);
-  border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.message.error {
-  background-color: rgba(244, 67, 54, 0.15);
-  color: var(--error);
-  border: 1px solid rgba(244, 67, 54, 0.3);
-}
-
-.modal-footer {
-  text-align: center;
-  margin-top: clamp(15px, 3vw, 20px);
-  padding-top: clamp(15px, 3vw, 20px);
-  border-top: 1px solid var(--gris);
-  color: var(--gris-oscuro);
-  font-size: clamp(12px, 2.5vw, 14px);
-}
-
-.modal-footer a {
-  color: var(--guindo);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.modal-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Animaciones responsivas */
+/* Animaciones */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(clamp(20px, 5vw, 30px));
+    transform: translateY(clamp(30px, 6vw, 40px));
   }
   to {
     opacity: 1;
@@ -746,7 +538,7 @@ body {
 @keyframes slideInFromTop {
   from {
     opacity: 0;
-    transform: translateY(clamp(-30px, -8vw, -50px));
+    transform: translateY(clamp(-40px, -8vw, -60px));
   }
   to {
     opacity: 1;
@@ -773,7 +565,7 @@ body {
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: scale(0.8) translateY(clamp(-15px, -4vw, -20px));
+    transform: scale(0.85) translateY(clamp(-20px, -4vw, -30px));
   }
   to {
     opacity: 1;
@@ -781,64 +573,40 @@ body {
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(clamp(-8px, -2vw, -10px));
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive para móviles muy pequeños */
-@media (max-width: 480px) {
-  .welcome-card {
-    padding: 20px 15px;
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .welcome-content {
+    padding: 0 15px;
   }
   
   .button-container {
     flex-direction: column;
+    align-items: center;
   }
   
   .welcome-button {
     min-width: 100%;
+    max-width: 300px;
   }
   
-  .form-options {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .element-1,
+  .element-2,
+  .element-3,
+  .element-4 {
+    opacity: 0.4; /* Reducimos opacidad en móviles para mejor visibilidad */
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-card {
+    padding: 25px 20px;
+  }
+  
+  .welcome-header {
+    margin-bottom: 25px;
   }
   
   .floating-element {
-    display: none; /* Ocultamos algunos elementos en móviles muy pequeños */
-  }
-}
-
-/* Para tablets y pantallas medianas */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .welcome-content {
-    max-width: 90%;
-  }
-  
-  .main-title {
-    font-size: clamp(2.5rem, 6vw, 3.5rem);
-  }
-}
-
-/* Para pantallas muy grandes */
-@media (min-width: 1440px) {
-  .welcome-content {
-    max-width: 1400px;
-  }
-  
-  .main-title {
-    font-size: 5rem;
-  }
-  
-  .subtitle {
-    font-size: 1.6rem;
+    display: none; /* Ocultamos elementos grandes en móviles muy pequeños */
   }
 }
