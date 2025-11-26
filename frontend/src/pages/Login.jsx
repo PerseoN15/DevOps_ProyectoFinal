@@ -128,13 +128,30 @@ function Login() {
 
   return (
     <div className="welcome-container">
-      {/* Fondo animado */}
+      {/* Fondo animado con bolitas guindas */}
       <div className="background-animation">
-        <div className="floating-shapes">
-          <div className="shape shape-1"></div>
-          <div className="shape shape-2"></div>
-          <div className="shape shape-3"></div>
-          <div className="shape shape-4"></div>
+        {/* Bolitas guindas grandes */}
+        <div className="floating-balls">
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+          <div className="ball"></div>
+        </div>
+        
+        {/* Partículas pequeñas */}
+        <div className="particles">
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
+          <div className="particle"></div>
         </div>
       </div>
 
