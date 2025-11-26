@@ -35,19 +35,128 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow: hidden;
 }
 
-/* Fondo animado */
+/* Fondo animado mejorado */
 .background-animation {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-oscuro) 100%);
+  background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-oscuro) 50%, #4a0018 100%);
   z-index: -1;
+  overflow: hidden;
 }
 
+/* Partículas animadas */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: floatParticle 20s infinite linear;
+}
+
+.particle:nth-child(1) {
+  width: 4px;
+  height: 4px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 25s;
+}
+
+.particle:nth-child(2) {
+  width: 6px;
+  height: 6px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+  animation-duration: 30s;
+}
+
+.particle:nth-child(3) {
+  width: 3px;
+  height: 3px;
+  top: 80%;
+  left: 20%;
+  animation-delay: 4s;
+  animation-duration: 20s;
+}
+
+.particle:nth-child(4) {
+  width: 5px;
+  height: 5px;
+  top: 30%;
+  left: 70%;
+  animation-delay: 6s;
+  animation-duration: 35s;
+}
+
+.particle:nth-child(5) {
+  width: 4px;
+  height: 4px;
+  top: 10%;
+  left: 50%;
+  animation-delay: 8s;
+  animation-duration: 28s;
+}
+
+.particle:nth-child(6) {
+  width: 7px;
+  height: 7px;
+  top: 70%;
+  left: 30%;
+  animation-delay: 10s;
+  animation-duration: 32s;
+}
+
+/* Ondas animadas */
+.waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: waveAnimation 15s infinite linear;
+}
+
+.wave-1 {
+  animation-delay: 0s;
+  height: 80%;
+  opacity: 0.4;
+}
+
+.wave-2 {
+  animation-delay: 3s;
+  height: 60%;
+  opacity: 0.3;
+}
+
+.wave-3 {
+  animation-delay: 6s;
+  height: 70%;
+  opacity: 0.2;
+}
+
+/* Formas geométricas flotantes */
 .floating-shapes {
   position: absolute;
   width: 100%;
@@ -57,52 +166,165 @@ body {
 
 .shape {
   position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  animation: float 20s infinite ease-in-out;
+  background: rgba(255, 255, 255, 0.05);
+  animation: floatShape 25s infinite ease-in-out;
 }
 
 .shape-1 {
+  width: 120px;
+  height: 120px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+}
+
+.shape-2 {
+  width: 180px;
+  height: 180px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 5s;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+}
+
+.shape-3 {
   width: 100px;
   height: 100px;
-  top: 10%;
+  top: 80%;
+  left: 20%;
+  animation-delay: 10s;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: linear-gradient(225deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+}
+
+.shape-4 {
+  width: 150px;
+  height: 150px;
+  top: 30%;
+  left: 70%;
+  animation-delay: 15s;
+  border-radius: 50% 50% 30% 70% / 50% 40% 60% 50%;
+  background: linear-gradient(315deg, rgba(255,255,255,0.09), rgba(255,255,255,0.06));
+}
+
+.shape-5 {
+  width: 80px;
+  height: 80px;
+  top: 15%;
+  left: 85%;
+  animation-delay: 7s;
+  border-radius: 70% 30% 50% 50% / 30% 70% 30% 70%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+}
+
+.shape-6 {
+  width: 200px;
+  height: 200px;
+  top: 75%;
+  left: 5%;
+  animation-delay: 12s;
+  border-radius: 30% 70% 50% 50% / 50% 50% 50% 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+}
+
+/* Efecto de brillo animado */
+.glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: glowMove 20s infinite alternate ease-in-out;
+  filter: blur(20px);
+}
+
+.glow-1 {
+  top: 20%;
   left: 10%;
   animation-delay: 0s;
 }
 
-.shape-2 {
-  width: 150px;
-  height: 150px;
+.glow-2 {
   top: 60%;
   left: 80%;
-  animation-delay: 5s;
-}
-
-.shape-3 {
-  width: 80px;
-  height: 80px;
-  top: 80%;
-  left: 20%;
   animation-delay: 10s;
 }
 
-.shape-4 {
-  width: 120px;
-  height: 120px;
-  top: 30%;
-  left: 70%;
-  animation-delay: 15s;
+.glow-3 {
+  top: 80%;
+  left: 20%;
+  animation-delay: 5s;
 }
 
-@keyframes float {
+/* Animaciones */
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes floatShape {
   0%, 100% {
     transform: translateY(0) rotate(0deg) scale(1);
   }
-  33% {
-    transform: translateY(-30px) rotate(120deg) scale(1.1);
+  25% {
+    transform: translateY(-40px) rotate(90deg) scale(1.1);
   }
-  66% {
-    transform: translateY(15px) rotate(240deg) scale(0.9);
+  50% {
+    transform: translateY(20px) rotate(180deg) scale(0.9);
+  }
+  75% {
+    transform: translateY(-20px) rotate(270deg) scale(1.05);
+  }
+}
+
+@keyframes glowMove {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(50px, -30px) scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-30px, 40px) scale(0.8);
+    opacity: 0.4;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -112,6 +334,8 @@ body {
   max-width: 800px;
   width: 100%;
   animation: fadeInUp 1s ease-out;
+  position: relative;
+  z-index: 2;
 }
 
 .welcome-header {
@@ -123,8 +347,12 @@ body {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 15px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   animation: slideInFromTop 1s ease-out;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .subtitle {
@@ -132,16 +360,23 @@ body {
   font-size: 1.3rem;
   font-weight: 300;
   animation: slideInFromTop 1s ease-out 0.2s both;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Tarjeta de bienvenida */
 .welcome-card {
-  background: var(--blanco);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 50px 40px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   margin: 30px 0;
   animation: scaleIn 0.8s ease-out 0.4s both;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .welcome-message {
@@ -177,6 +412,7 @@ body {
   min-width: 180px;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .welcome-button::before {
@@ -186,8 +422,8 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
 }
 
 .welcome-button:hover::before {
@@ -197,41 +433,49 @@ body {
 .login-btn {
   background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-claro) 100%);
   color: var(--blanco);
-  box-shadow: 0 5px 15px rgba(128, 0, 32, 0.3);
+  box-shadow: 
+    0 5px 15px rgba(128, 0, 32, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .login-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(128, 0, 32, 0.4);
+  box-shadow: 
+    0 8px 25px rgba(128, 0, 32, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .register-btn {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
   color: var(--guindo);
   border: 2px solid var(--guindo);
+  backdrop-filter: blur(10px);
 }
 
 .register-btn:hover {
   background: var(--guindo);
   color: var(--blanco);
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
+  box-shadow: 0 8px 25px rgba(128, 0, 32, 0.3);
 }
 
 /* Footer */
 .welcome-footer {
   margin-top: 30px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .welcome-footer a {
   color: var(--blanco);
   text-decoration: none;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .welcome-footer a:hover {
   text-decoration: underline;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 /* Modal */
@@ -241,8 +485,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,14 +495,18 @@ body {
 }
 
 .modal-content {
-  background: var(--blanco);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
   border-radius: 20px;
   padding: 40px;
   width: 90%;
   max-width: 450px;
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -272,17 +520,19 @@ body {
   font-size: 2rem;
   color: var(--gris-oscuro);
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  border-radius: 50%;
 }
 
 .close-button:hover {
   color: var(--guindo);
+  background: rgba(128, 0, 32, 0.1);
 }
 
 .modal-header {
@@ -299,6 +549,8 @@ body {
 .modal-header p {
   color: var(--gris-oscuro);
 }
+
+/* ... (el resto del CSS de formularios y animaciones se mantiene igual) ... */
 
 /* Formulario */
 .modal-form {
@@ -403,11 +655,12 @@ body {
   overflow: hidden;
   transition: all 0.3s ease;
   margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
 }
 
 .submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(128, 0, 32, 0.4);
+  box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
 }
 
 .submit-button:active:not(:disabled) {
@@ -459,16 +712,17 @@ body {
   text-align: center;
   font-weight: 500;
   animation: slideIn 0.5s ease-out;
+  backdrop-filter: blur(10px);
 }
 
 .message.success {
-  background-color: rgba(76, 175, 80, 0.1);
+  background-color: rgba(76, 175, 80, 0.15);
   color: var(--exito);
   border: 1px solid rgba(76, 175, 80, 0.3);
 }
 
 .message.error {
-  background-color: rgba(244, 67, 54, 0.1);
+  background-color: rgba(244, 67, 54, 0.15);
   color: var(--error);
   border: 1px solid rgba(244, 67, 54, 0.3);
 }
@@ -586,6 +840,10 @@ body {
     gap: 10px;
     align-items: flex-start;
   }
+  
+  .shape {
+    transform: scale(0.7);
+  }
 }
 
 @media (max-width: 480px) {
@@ -599,5 +857,9 @@ body {
   
   .modal-content {
     padding: 25px 15px;
+  }
+  
+  .shape {
+    transform: scale(0.5);
   }
 }
