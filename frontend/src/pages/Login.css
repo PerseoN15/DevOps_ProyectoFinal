@@ -234,7 +234,7 @@ body {
   text-decoration: underline;
 }
 
-/* Modal de Login */
+/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -259,6 +259,8 @@ body {
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .close-button {
@@ -276,29 +278,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .close-button:hover {
   color: var(--guindo);
 }
 
-.login-header {
+.modal-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.login-header h2 {
+.modal-header h2 {
   color: var(--guindo);
   font-size: 1.8rem;
   margin-bottom: 8px;
 }
 
-.login-header p {
+.modal-header p {
   color: var(--gris-oscuro);
 }
 
-/* Formulario de login (reutilizado del anterior) */
-.login-form {
+/* Formulario */
+.modal-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -387,7 +390,7 @@ body {
   text-decoration: underline;
 }
 
-.login-button {
+.submit-button {
   position: relative;
   background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-claro) 100%);
   color: var(--blanco);
@@ -402,16 +405,16 @@ body {
   margin-top: 10px;
 }
 
-.login-button:hover:not(:disabled) {
+.submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(128, 0, 32, 0.4);
 }
 
-.login-button:active:not(:disabled) {
+.submit-button:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.login-button:disabled {
+.submit-button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
@@ -421,7 +424,7 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.login-button.loading .button-text {
+.submit-button.loading .button-text {
   opacity: 0;
 }
 
@@ -440,7 +443,7 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.login-button.loading .button-loader {
+.submit-button.loading .button-loader {
   opacity: 1;
 }
 
@@ -592,5 +595,9 @@ body {
   
   .welcome-message {
     font-size: 1.8rem;
+  }
+  
+  .modal-content {
+    padding: 25px 15px;
   }
 }
