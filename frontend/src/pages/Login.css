@@ -3,15 +3,14 @@
   --guindo: #800020;
   --guindo-claro: #a8324a;
   --guindo-oscuro: #600018;
-  --guindo-suave: rgba(128, 0, 32, 0.4);
+  --guindo-suave: rgba(128, 0, 32, 0.1);
+  --beige-claro: #f9f5f0;
+  --beige-medio: #e8e0d5;
   --blanco: #ffffff;
-  --gris-claro: #f5f5f5;
-  --gris: #e0e0e0;
-  --gris-oscuro: #757575;
+  --gris-oscuro: #555;
   --texto: #333333;
   --exito: #4caf50;
   --error: #f44336;
-  --sombra: rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos generales */
@@ -23,457 +22,252 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0a0a0a;
-  overflow-x: hidden;
+  background: var(--beige-claro);
 }
 
-/* Contenedor principal - CENTRADO */
+/* Contenedor principal inspirado en tu diseño */
 .welcome-container {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(135deg, var(--beige-claro) 0%, var(--beige-medio) 100%);
   min-height: 100vh;
-  width: 100%;
-  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
+  position: relative;
   overflow: hidden;
 }
 
-/* Fondo animado visible y centrado */
-.background-animation {
-  position: fixed;
+/* Fondo con patrón sutil */
+.welcome-container::before {
+  content: '';
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 50% 50%, rgba(128, 0, 32, 0.4) 0%, transparent 60%),
-    radial-gradient(circle at 80% 20%, rgba(168, 50, 74, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(96, 0, 24, 0.35) 0%, transparent 50%),
-    linear-gradient(135deg, #1a0a0f 0%, #2a0a14 30%, #1a0a0f 70%, #0a0a0a 100%);
-  z-index: -1;
-  overflow: hidden;
-}
-
-/* Patrón de puntos animados - MÁS VISIBLE */
-.dots-pattern {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 25% 25%, var(--guindo-suave) 2px, transparent 3px),
-    radial-gradient(circle at 75% 75%, var(--guindo-suave) 2px, transparent 3px);
-  background-size: 80px 80px, 100px 100px;
-  animation: dotsMove 60s infinite linear;
-  opacity: 0.4;
-}
-
-/* Ondas sutiles - MÁS VISIBLES */
-.waves-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-}
-
-.wave {
-  position: absolute;
-  width: 200%;
-  height: 100px;
-  background: linear-gradient(90deg, transparent, var(--guindo-claro), transparent);
-  animation: waveMove 25s infinite linear;
-}
-
-.wave-1 {
-  top: 30%;
-  animation-delay: 0s;
-  animation-duration: 30s;
-  opacity: 0.25;
-  height: 120px;
-}
-
-.wave-2 {
-  top: 70%;
-  animation-delay: 15s;
-  animation-duration: 35s;
-  opacity: 0.2;
-  height: 80px;
-}
-
-/* Elementos flotantes elegantes - MÁS VISIBLES */
-.floating-elements {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.floating-element {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--guindo-suave) 0%, transparent 70%);
-  filter: blur(50px);
-  animation: floatElement 40s infinite ease-in-out;
-  opacity: 0.7;
-}
-
-/* Elementos grandes - CENTRADOS Y VISIBLES */
-.element-1 {
-  width: min(50vw, 600px);
-  height: min(50vw, 600px);
-  top: 10%;
-  left: 10%;
-  animation-delay: 0s;
-  background: radial-gradient(circle, rgba(128, 0, 32, 0.5) 0%, transparent 70%);
-}
-
-.element-2 {
-  width: min(45vw, 550px);
-  height: min(45vw, 550px);
-  bottom: 10%;
-  right: 10%;
-  animation-delay: 20s;
-  background: radial-gradient(circle, rgba(168, 50, 74, 0.4) 0%, transparent 70%);
-}
-
-/* Elementos medianos - CENTRADOS */
-.element-3 {
-  width: min(30vw, 400px);
-  height: min(30vw, 400px);
-  top: 50%;
-  left: 70%;
-  animation-delay: 10s;
-  background: radial-gradient(circle, rgba(96, 0, 24, 0.45) 0%, transparent 70%);
-  transform: translateY(-50%);
-}
-
-.element-4 {
-  width: min(25vw, 350px);
-  height: min(25vw, 350px);
-  top: 50%;
-  left: 20%;
-  animation-delay: 30s;
-  background: radial-gradient(circle, rgba(128, 0, 32, 0.35) 0%, transparent 70%);
-  transform: translateY(-50%);
-}
-
-/* Partículas sutiles - MÁS VISIBLES */
-.particles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.particle {
-  position: absolute;
-  background: var(--guindo-claro);
-  border-radius: 50%;
-  animation: particleFloat 25s infinite linear;
-  opacity: 0.6;
-  box-shadow: 0 0 10px var(--guindo-suave);
-}
-
-/* Partículas responsivas - POSICIONES CENTRALES */
-.particle:nth-child(1) { 
-  width: clamp(6px, 1.5vw, 12px); 
-  height: clamp(6px, 1.5vw, 12px); 
-  top: 20%; 
-  left: 50%; 
-  animation-delay: 0s; 
-  animation-duration: 30s;
-}
-.particle:nth-child(2) { 
-  width: clamp(8px, 2vw, 16px); 
-  height: clamp(8px, 2vw, 16px); 
-  top: 80%; 
-  left: 30%; 
-  animation-delay: 8s; 
-  animation-duration: 35s;
-}
-.particle:nth-child(3) { 
-  width: clamp(4px, 1vw, 8px); 
-  height: clamp(4px, 1vw, 8px); 
-  top: 60%; 
-  left: 80%; 
-  animation-delay: 16s; 
-  animation-duration: 25s;
-}
-.particle:nth-child(4) { 
-  width: clamp(7px, 1.8vw, 14px); 
-  height: clamp(7px, 1.8vw, 14px); 
-  top: 40%; 
-  left: 20%; 
-  animation-delay: 24s; 
-  animation-duration: 40s;
-}
-
-/* Líneas de conexión sutiles - MÁS VISIBLES */
-.connection-lines {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.connection-line {
-  position: absolute;
-  background: linear-gradient(90deg, transparent, var(--guindo-suave), transparent);
-  height: 2px;
-  animation: connectionPulse 12s infinite ease-in-out;
+    radial-gradient(circle at 20% 80%, var(--guindo-suave) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--guindo-suave) 0%, transparent 50%);
   opacity: 0.3;
+  z-index: 0;
 }
 
-.line-1 { top: 25%; left: 0; width: 100%; animation-delay: 0s; }
-.line-2 { top: 50%; left: 0; width: 100%; animation-delay: 4s; }
-.line-3 { top: 75%; left: 0; width: 100%; animation-delay: 8s; }
-
-/* Animaciones */
-@keyframes dotsMove {
-  0% {
-    background-position: 0 0, 0 0;
-  }
-  100% {
-    background-position: 80px 80px, 100px 100px;
-  }
+/* Elementos decorativos circulares */
+.decorative-element {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--guindo-suave);
+  z-index: 0;
+  animation: float 20s infinite ease-in-out;
 }
 
-@keyframes waveMove {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.decorative-element:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  left: -150px;
+  animation-delay: 0s;
 }
 
-@keyframes floatElement {
+.decorative-element:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: 10s;
+}
+
+.decorative-element:nth-child(3) {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: 10%;
+  animation-delay: 5s;
+}
+
+.decorative-element:nth-child(4) {
+  width: 180px;
+  height: 180px;
+  bottom: 30%;
+  right: 15%;
+  animation-delay: 15s;
+}
+
+@keyframes float {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.7;
+    transform: translateY(0) rotate(0deg);
   }
-  25% {
-    transform: translate(3%, -3%) scale(1.1);
-    opacity: 0.9;
+  33% {
+    transform: translateY(-20px) rotate(120deg);
   }
-  50% {
-    transform: translate(-2%, 2%) scale(0.95);
-    opacity: 0.6;
-  }
-  75% {
-    transform: translate(2%, 1%) scale(1.05);
-    opacity: 0.8;
+  66% {
+    transform: translateY(10px) rotate(240deg);
   }
 }
 
-@keyframes particleFloat {
-  0% {
-    transform: translateY(100vh) translateX(-50px) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  90% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-100vh) translateX(50px) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-@keyframes connectionPulse {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scaleX(0.8);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scaleX(1);
-  }
-}
-
-/* Contenido principal - CENTRADO Y CON MÁRGENES */
+/* Contenido principal */
 .welcome-content {
-  text-align: center;
-  max-width: min(90vw, 1200px);
-  width: 100%;
-  animation: fadeInUp 1s ease-out;
+  max-width: 800px;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5);
   position: relative;
-  z-index: 10;
-  padding: 0 clamp(20px, 5vw, 50px);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .welcome-header {
-  margin-bottom: clamp(30px, 6vw, 70px);
-  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .main-title {
-  color: var(--blanco);
-  font-size: clamp(2.5rem, 9vw, 5rem);
+  font-size: 3rem;
+  color: var(--guindo);
+  margin-bottom: 1.5rem;
   font-weight: 700;
-  margin-bottom: clamp(15px, 3vw, 25px);
-  text-shadow: 
-    2px 2px 6px rgba(0, 0, 0, 0.9),
-    0 0 40px rgba(128, 0, 32, 0.8),
-    0 0 80px rgba(128, 0, 32, 0.4);
-  animation: slideInFromTop 1s ease-out;
-  line-height: 1.1;
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
   letter-spacing: -0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  animation: slideInFromTop 0.8s ease-out;
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-  font-weight: 300;
-  animation: slideInFromTop 1s ease-out 0.2s both;
-  text-shadow: 
-    1px 1px 3px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(128, 0, 32, 0.6);
-  line-height: 1.4;
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
-  max-width: 800px;
-  margin: 0 auto;
+  font-size: 1.3rem;
+  margin: 1rem 0;
+  color: var(--gris-oscuro);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: slideInFromTop 0.8s ease-out 0.2s both;
 }
 
-/* Tarjeta de bienvenida - CENTRADA */
+/* Tarjeta de bienvenida */
 .welcome-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: clamp(20px, 5vw, 30px);
-  padding: clamp(30px, 7vw, 70px) clamp(25px, 6vw, 60px);
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.15),
-    0 0 60px rgba(128, 0, 32, 0.2);
-  margin: clamp(25px, 5vw, 50px) 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  margin: 2rem 0 0 0;
   animation: scaleIn 0.8s ease-out 0.4s both;
   position: relative;
-  z-index: 10;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px);
-  max-width: min(90vw, 600px);
-  width: 100%;
+  z-index: 1;
+  border: none;
+  backdrop-filter: none;
 }
 
 .welcome-message {
   color: var(--guindo);
-  font-size: clamp(1.8rem, 6vw, 3rem);
-  margin-bottom: clamp(15px, 3vw, 25px);
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
   font-weight: 600;
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.2;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .welcome-description {
   color: var(--gris-oscuro);
-  font-size: clamp(1rem, 2.8vw, 1.3rem);
-  margin-bottom: clamp(30px, 6vw, 50px);
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
   line-height: 1.6;
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Botones responsivos - CENTRADOS */
+/* Botones - Inspirado en tu diseño */
 .button-container {
   display: flex;
-  gap: clamp(20px, 4vw, 30px);
   justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .welcome-button {
-  padding: clamp(14px, 3.5vw, 20px) clamp(25px, 5vw, 40px);
-  border: none;
+  padding: 1rem 2.5rem;
   border-radius: 50px;
-  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  text-decoration: none;
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.3s ease;
-  min-width: min(220px, 75vw);
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: inline-block;
   position: relative;
   overflow: hidden;
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
-  flex: 1;
-  max-width: 280px;
+  z-index: 1;
+  min-width: 180px;
 }
 
 .welcome-button::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
-  width: 100%;
+  left: 0;
+  width: 0;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  transition: left 0.6s;
+  transition: all 0.3s ease;
+  z-index: -1;
 }
 
 .welcome-button:hover::before {
-  left: 100%;
-}
-
-.login-btn {
-  background: linear-gradient(135deg, var(--guindo) 0%, var(--guindo-claro) 100%);
-  color: var(--blanco);
-  box-shadow: 
-    0 10px 25px rgba(128, 0, 32, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.2),
-    0 0 20px rgba(128, 0, 32, 0.3);
-}
-
-.login-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 15px 35px rgba(128, 0, 32, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.3),
-    0 0 30px rgba(128, 0, 32, 0.4);
-}
-
-.register-btn {
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--guindo);
-  border: 2px solid var(--guindo);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.register-btn:hover {
-  background: var(--guindo);
-  color: var(--blanco);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(128, 0, 32, 0.4);
-}
-
-/* Footer responsivo - CENTRADO */
-.welcome-footer {
-  margin-top: clamp(25px, 5vw, 40px);
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-  font-smooth: always;
-  -webkit-font-smoothing: antialiased;
-  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-  text-align: center;
   width: 100%;
 }
 
-.welcome-footer a {
+.welcome-button:hover {
+  transform: translateY(-3px);
+}
+
+.welcome-button:active {
+  transform: translateY(1px);
+}
+
+/* Botón de login */
+.login-btn {
+  background-color: var(--guindo);
   color: var(--blanco);
+  box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
+}
+
+.login-btn::before {
+  background-color: var(--guindo-oscuro);
+}
+
+.login-btn:hover {
+  box-shadow: 0 7px 20px rgba(128, 0, 32, 0.4);
+}
+
+/* Botón de registro */
+.register-btn {
+  background-color: transparent;
+  color: var(--guindo);
+  border: 2px solid var(--guindo);
+  box-shadow: none;
+}
+
+.register-btn::before {
+  background-color: #f0e6e8;
+}
+
+.register-btn:hover {
+  color: var(--guindo-oscuro);
+}
+
+/* Footer */
+.welcome-footer {
+  margin-top: 3rem;
+  color: var(--gris-oscuro);
+  font-size: 1rem;
+}
+
+.welcome-footer a {
+  color: var(--guindo);
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -481,53 +275,299 @@ body {
 
 .welcome-footer a:hover {
   text-decoration: underline;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-  color: #ffd700;
+  color: var(--guindo-oscuro);
 }
 
-/* ... (el resto del CSS de modales se mantiene igual pero centrado) ... */
-
-/* Modal responsivo - CENTRADO */
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
-  padding: clamp(15px, 4vw, 25px);
+  padding: 2rem;
 }
 
+/* Modal Content - Estilo similar a la tarjeta principal */
 .modal-content {
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: clamp(20px, 5vw, 30px);
-  padding: clamp(30px, 6vw, 50px) clamp(25px, 5vw, 45px);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
   width: 100%;
-  max-width: min(95vw, 500px);
+  max-width: 450px;
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
   box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.2),
-    0 0 40px rgba(128, 0, 32, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    0 25px 50px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
   max-height: 90vh;
   overflow-y: auto;
-  margin: 0 auto;
 }
 
-/* ... (el resto del CSS de formularios se mantiene igual) ... */
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--gris-oscuro);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.close-button:hover {
+  color: var(--guindo);
+  background: rgba(128, 0, 32, 0.1);
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+  color: var(--guindo);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.modal-header p {
+  color: var(--gris-oscuro);
+  font-size: 1rem;
+}
+
+/* Formulario */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 0 0.5rem 0;
+  border: none;
+  border-bottom: 2px solid var(--beige-medio);
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-bottom-color: var(--guindo);
+}
+
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label {
+  top: 0;
+  font-size: 0.8rem;
+  color: var(--guindo);
+}
+
+.form-label {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  font-size: 1rem;
+  color: var(--gris-oscuro);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.input-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--guindo);
+  transition: width 0.3s ease;
+}
+
+.form-input:focus ~ .input-underline {
+  width: 100%;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gris-oscuro);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.remember-me input {
+  accent-color: var(--guindo);
+}
+
+.forgot-password {
+  color: var(--guindo);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.submit-button {
+  position: relative;
+  background: var(--guindo);
+  color: var(--blanco);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
+}
+
+.submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--guindo-oscuro);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.submit-button:hover::before {
+  width: 100%;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.button-text {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.submit-button.loading .button-text {
+  opacity: 0;
+}
+
+.button-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--blanco);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.submit-button.loading .button-loader {
+  opacity: 1;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.message {
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  animation: slideIn 0.5s ease-out;
+}
+
+.message.success {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--exito);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.message.error {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.modal-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--beige-medio);
+  color: var(--gris-oscuro);
+  font-size: 0.9rem;
+}
+
+.modal-footer a {
+  color: var(--guindo);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.modal-footer a:hover {
+  text-decoration: underline;
+}
 
 /* Animaciones */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(clamp(30px, 6vw, 40px));
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -538,7 +578,7 @@ body {
 @keyframes slideInFromTop {
   from {
     opacity: 0;
-    transform: translateY(clamp(-40px, -8vw, -60px));
+    transform: translateY(-50px);
   }
   to {
     opacity: 1;
@@ -565,7 +605,7 @@ body {
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: scale(0.85) translateY(clamp(-20px, -4vw, -30px));
+    transform: scale(0.9) translateY(-20px);
   }
   to {
     opacity: 1;
@@ -573,40 +613,71 @@ body {
   }
 }
 
-/* Responsive para móviles */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
   .welcome-content {
-    padding: 0 15px;
+    padding: 2rem;
+    margin: 1rem;
+  }
+  
+  .main-title {
+    font-size: 2.2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
   }
   
   .button-container {
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
   }
   
   .welcome-button {
-    min-width: 100%;
-    max-width: 300px;
+    width: 100%;
   }
   
-  .element-1,
-  .element-2,
-  .element-3,
-  .element-4 {
-    opacity: 0.4; /* Reducimos opacidad en móviles para mejor visibilidad */
+  .modal-content {
+    padding: 2rem;
+    margin: 1rem;
+  }
+  
+  .form-options {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .decorative-element {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
-  .welcome-card {
-    padding: 25px 20px;
+  .welcome-content {
+    padding: 1.5rem;
   }
   
-  .welcome-header {
-    margin-bottom: 25px;
+  .modal-content {
+    padding: 1.5rem;
   }
   
-  .floating-element {
-    display: none; /* Ocultamos elementos grandes en móviles muy pequeños */
+  .main-title {
+    font-size: 1.8rem;
+  }
+  
+  .welcome-message {
+    font-size: 1.8rem;
   }
 }

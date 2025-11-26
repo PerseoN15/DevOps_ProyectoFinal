@@ -128,40 +128,11 @@ function Login() {
 
   return (
     <div className="welcome-container">
-      {/* Fondo animado elegante y responsivo */}
-      <div className="background-animation">
-        {/* Patrón de puntos */}
-        <div className="dots-pattern"></div>
-        
-        {/* Ondas sutiles */}
-        <div className="waves-container">
-          <div className="wave wave-1"></div>
-          <div className="wave wave-2"></div>
-        </div>
-        
-        {/* Elementos flotantes */}
-        <div className="floating-elements">
-          <div className="floating-element element-1"></div>
-          <div className="floating-element element-2"></div>
-          <div className="floating-element element-3"></div>
-          <div className="floating-element element-4"></div>
-        </div>
-        
-        {/* Partículas */}
-        <div className="particles">
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
-        </div>
-        
-        {/* Líneas de conexión */}
-        <div className="connection-lines">
-          <div className="connection-line line-1"></div>
-          <div className="connection-line line-2"></div>
-          <div className="connection-line line-3"></div>
-        </div>
-      </div>
+      {/* Elementos decorativos circulares */}
+      <div className="decorative-element"></div>
+      <div className="decorative-element"></div>
+      <div className="decorative-element"></div>
+      <div className="decorative-element"></div>
 
       {/* Contenido principal */}
       <div className="welcome-content">
