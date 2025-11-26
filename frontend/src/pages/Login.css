@@ -25,7 +25,7 @@ body {
   background: var(--beige-claro);
 }
 
-/* Contenedor principal inspirado en tu diseño */
+/* Contenedor principal - OCUPANDO TODA LA PANTALLA */
 .welcome-container {
   text-align: center;
   padding: 0;
@@ -38,6 +38,7 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
+  width: 100vw; /*  Asegura que ocupe todo el ancho de la ventana */
 }
 
 /* Fondo con patrón sutil */
@@ -108,9 +109,11 @@ body {
   }
 }
 
-/* Contenido principal */
+/* Contenido principal - MÁS ANCHO Y MEJOR CENTRADO */
 .welcome-content {
-  max-width: 800px;
+  width: 90vw; /* 👈 Ocupa el 90% del ancho de la ventana */
+  max-width: 1200px; /* 👈 Máximo más amplio para pantallas grandes */
+  margin: 0 auto; /* 👈 Centra horizontalmente */
   padding: 3rem;
   background: rgba(255, 255, 255, 0.92);
   border-radius: 20px;
@@ -294,13 +297,14 @@ body {
   padding: 2rem;
 }
 
-/* Modal Content - Estilo similar a la tarjeta principal */
+/* Modal Content - MÁS ANCHO TAMBIÉN */
 .modal-content {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 3rem;
-  width: 100%;
-  max-width: 450px;
+  width: 90vw; /*  Mismo enfoque responsivo */
+  max-width: 500px; /*  Máximo para modales */
+  margin: 0 auto; /* Centrado */
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
   box-shadow: 
@@ -629,6 +633,7 @@ body {
   .welcome-content {
     padding: 2rem;
     margin: 1rem;
+    width: 95vw; /*  Más ancho en móviles */
   }
   
   .main-title {
@@ -651,6 +656,7 @@ body {
   .modal-content {
     padding: 2rem;
     margin: 1rem;
+    width: 95vw; /*  Más ancho en móviles */
   }
   
   .form-options {
@@ -667,10 +673,12 @@ body {
 @media (max-width: 480px) {
   .welcome-content {
     padding: 1.5rem;
+    width: 98vw; /*  Casi todo el ancho en móviles pequeños */
   }
   
   .modal-content {
     padding: 1.5rem;
+    width: 98vw; /*  Casi todo el ancho en móviles pequeños */
   }
   
   .main-title {
@@ -679,5 +687,12 @@ body {
   
   .welcome-message {
     font-size: 1.8rem;
+  }
+}
+
+/* Para pantallas muy grandes (más de 1200px) */
+@media (min-width: 1200px) {
+  .welcome-content {
+    max-width: 1100px; /*  Un poco más ancho en pantallas grandes */
   }
 }
