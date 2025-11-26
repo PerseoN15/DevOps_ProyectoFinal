@@ -128,30 +128,38 @@ function Login() {
 
   return (
     <div className="welcome-container">
-      {/* Fondo animado con bolitas guindas */}
+      {/* Fondo animado elegante y responsivo */}
       <div className="background-animation">
-        {/* Bolitas guindas grandes */}
-        <div className="floating-balls">
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
-          <div className="ball"></div>
+        {/* Patrón de puntos */}
+        <div className="dots-pattern"></div>
+        
+        {/* Ondas sutiles */}
+        <div className="waves-container">
+          <div className="wave wave-1"></div>
+          <div className="wave wave-2"></div>
         </div>
         
-        {/* Partículas pequeñas */}
+        {/* Elementos flotantes */}
+        <div className="floating-elements">
+          <div className="floating-element element-1"></div>
+          <div className="floating-element element-2"></div>
+          <div className="floating-element element-3"></div>
+          <div className="floating-element element-4"></div>
+        </div>
+        
+        {/* Partículas */}
         <div className="particles">
           <div className="particle"></div>
           <div className="particle"></div>
           <div className="particle"></div>
           <div className="particle"></div>
-          <div className="particle"></div>
-          <div className="particle"></div>
+        </div>
+        
+        {/* Líneas de conexión */}
+        <div className="connection-lines">
+          <div className="connection-line line-1"></div>
+          <div className="connection-line line-2"></div>
+          <div className="connection-line line-3"></div>
         </div>
       </div>
 

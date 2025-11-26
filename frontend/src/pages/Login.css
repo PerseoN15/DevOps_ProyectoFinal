@@ -3,7 +3,7 @@
   --guindo: #800020;
   --guindo-claro: #a8324a;
   --guindo-oscuro: #600018;
-  --guindo-suave: rgba(128, 0, 32, 0.3);
+  --guindo-suave: rgba(128, 0, 32, 0.4);
   --blanco: #ffffff;
   --gris-claro: #f5f5f5;
   --gris: #e0e0e0;
@@ -23,7 +23,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--gris-claro);
+  background-color: #0a0a0a;
   overflow-x: hidden;
 }
 
@@ -39,140 +39,119 @@ body {
   overflow: hidden;
 }
 
-/* Fondo con bolitas guindas animadas */
+/* Fondo elegante y responsivo */
 .background-animation {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #1a0010 0%, #2d001a 50%, #1a0010 100%);
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(128, 0, 32, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 50, 74, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(96, 0, 24, 0.25) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a0a0f 30%, #2a0a14 70%, #1a0a0f 100%);
   z-index: -1;
   overflow: hidden;
 }
 
-/* Bolitas guindas animadas */
-.floating-balls {
+/* Patrón de puntos animados */
+.dots-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--guindo-suave) 2px, transparent 2.5px),
+    radial-gradient(circle at 75% 75%, var(--guindo-suave) 2px, transparent 2.5px);
+  background-size: 60px 60px, 80px 80px;
+  animation: dotsMove 40s infinite linear;
+  opacity: 0.3;
+}
+
+/* Ondas sutiles */
+.waves-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--guindo-claro), transparent);
+  animation: waveMove 20s infinite linear;
+}
+
+.wave-1 {
+  top: 20%;
+  animation-delay: 0s;
+  animation-duration: 25s;
+  opacity: 0.15;
+}
+
+.wave-2 {
+  top: 60%;
+  animation-delay: 10s;
+  animation-duration: 30s;
+  opacity: 0.1;
+}
+
+/* Elementos flotantes elegantes */
+.floating-elements {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-.ball {
+.floating-element {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--guindo-claro), var(--guindo-oscuro));
-  box-shadow: 
-    0 0 20px var(--guindo-suave),
-    inset 0 0 10px rgba(255, 255, 255, 0.1);
-  animation: floatBall 25s infinite linear;
-  opacity: 0.7;
+  background: radial-gradient(circle, var(--guindo-suave) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: floatElement 30s infinite ease-in-out;
 }
 
-.ball::before {
-  content: '';
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  width: 20%;
-  height: 20%;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  filter: blur(2px);
-}
-
-/* Tamaños y posiciones de las bolitas */
-.ball:nth-child(1) {
-  width: 80px;
-  height: 80px;
-  top: 10%;
-  left: 5%;
+/* Elementos grandes */
+.element-1 {
+  width: min(40vw, 500px);
+  height: min(40vw, 500px);
+  top: -10%;
+  left: -10%;
   animation-delay: 0s;
-  animation-duration: 30s;
+  background: radial-gradient(circle, rgba(128, 0, 32, 0.4) 0%, transparent 70%);
 }
 
-.ball:nth-child(2) {
-  width: 120px;
-  height: 120px;
-  top: 70%;
-  left: 80%;
-  animation-delay: 5s;
-  animation-duration: 35s;
-}
-
-.ball:nth-child(3) {
-  width: 60px;
-  height: 60px;
-  top: 80%;
-  left: 15%;
-  animation-delay: 10s;
-  animation-duration: 25s;
-}
-
-.ball:nth-child(4) {
-  width: 100px;
-  height: 100px;
-  top: 20%;
-  left: 75%;
+.element-2 {
+  width: min(35vw, 450px);
+  height: min(35vw, 450px);
+  bottom: -15%;
+  right: -5%;
   animation-delay: 15s;
-  animation-duration: 40s;
+  background: radial-gradient(circle, rgba(168, 50, 74, 0.3) 0%, transparent 70%);
 }
 
-.ball:nth-child(5) {
-  width: 90px;
-  height: 90px;
-  top: 60%;
-  left: 10%;
-  animation-delay: 7s;
-  animation-duration: 32s;
-}
-
-.ball:nth-child(6) {
-  width: 70px;
-  height: 70px;
-  top: 30%;
-  left: 85%;
-  animation-delay: 12s;
-  animation-duration: 28s;
-}
-
-.ball:nth-child(7) {
-  width: 110px;
-  height: 110px;
-  top: 85%;
+/* Elementos medianos */
+.element-3 {
+  width: min(25vw, 300px);
+  height: min(25vw, 300px);
+  top: 50%;
   left: 70%;
-  animation-delay: 18s;
-  animation-duration: 38s;
+  animation-delay: 5s;
+  background: radial-gradient(circle, rgba(96, 0, 24, 0.35) 0%, transparent 70%);
 }
 
-.ball:nth-child(8) {
-  width: 50px;
-  height: 50px;
-  top: 15%;
-  left: 25%;
-  animation-delay: 3s;
-  animation-duration: 22s;
-}
-
-.ball:nth-child(9) {
-  width: 130px;
-  height: 130px;
-  top: 45%;
-  left: 5%;
+.element-4 {
+  width: min(20vw, 250px);
+  height: min(20vw, 250px);
+  bottom: 30%;
+  left: 10%;
   animation-delay: 20s;
-  animation-duration: 45s;
+  background: radial-gradient(circle, rgba(128, 0, 32, 0.25) 0%, transparent 70%);
 }
 
-.ball:nth-child(10) {
-  width: 85px;
-  height: 85px;
-  top: 55%;
-  left: 90%;
-  animation-delay: 8s;
-  animation-duration: 33s;
-}
-
-/* Partículas pequeñas guindas */
+/* Partículas sutiles */
 .particles {
   position: absolute;
   width: 100%;
@@ -181,46 +160,107 @@ body {
 
 .particle {
   position: absolute;
-  background: var(--guindo);
+  background: var(--guindo-claro);
   border-radius: 50%;
-  animation: floatParticle 20s infinite linear;
-  opacity: 0.4;
+  animation: particleFloat 20s infinite linear;
+  opacity: 0;
 }
 
-.particle:nth-child(1) { width: 8px; height: 8px; top: 25%; left: 20%; animation-delay: 0s; }
-.particle:nth-child(2) { width: 12px; height: 12px; top: 65%; left: 75%; animation-delay: 2s; }
-.particle:nth-child(3) { width: 6px; height: 6px; top: 75%; left: 30%; animation-delay: 4s; }
-.particle:nth-child(4) { width: 10px; height: 10px; top: 35%; left: 65%; animation-delay: 6s; }
-.particle:nth-child(5) { width: 7px; height: 7px; top: 85%; left: 50%; animation-delay: 8s; }
-.particle:nth-child(6) { width: 9px; height: 9px; top: 45%; left: 15%; animation-delay: 10s; }
+/* Partículas responsivas */
+.particle:nth-child(1) { 
+  width: clamp(4px, 1vw, 8px); 
+  height: clamp(4px, 1vw, 8px); 
+  top: 15%; 
+  left: 10%; 
+  animation-delay: 0s; 
+  animation-duration: 25s;
+}
+.particle:nth-child(2) { 
+  width: clamp(6px, 1.5vw, 12px); 
+  height: clamp(6px, 1.5vw, 12px); 
+  top: 75%; 
+  left: 85%; 
+  animation-delay: 5s; 
+  animation-duration: 30s;
+}
+.particle:nth-child(3) { 
+  width: clamp(3px, 0.8vw, 6px); 
+  height: clamp(3px, 0.8vw, 6px); 
+  top: 85%; 
+  left: 15%; 
+  animation-delay: 10s; 
+  animation-duration: 20s;
+}
+.particle:nth-child(4) { 
+  width: clamp(5px, 1.2vw, 10px); 
+  height: clamp(5px, 1.2vw, 10px); 
+  top: 25%; 
+  left: 75%; 
+  animation-delay: 15s; 
+  animation-duration: 35s;
+}
+
+/* Líneas de conexión sutiles */
+.connection-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.connection-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, var(--guindo-suave), transparent);
+  height: 1px;
+  animation: connectionPulse 8s infinite ease-in-out;
+  opacity: 0.1;
+}
+
+.line-1 { top: 30%; left: 0; width: 100%; animation-delay: 0s; }
+.line-2 { top: 60%; left: 0; width: 100%; animation-delay: 2s; }
+.line-3 { top: 80%; left: 0; width: 100%; animation-delay: 4s; }
 
 /* Animaciones */
-@keyframes floatBall {
+@keyframes dotsMove {
   0% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    opacity: 0.7;
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 60px 60px, 80px 80px;
+  }
+}
+
+@keyframes waveMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes floatElement {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
   }
   25% {
-    transform: translate(40px, -60px) rotate(90deg) scale(1.1);
+    transform: translate(5%, -5%) scale(1.1);
     opacity: 0.8;
   }
   50% {
-    transform: translate(-30px, 50px) rotate(180deg) scale(0.9);
-    opacity: 0.6;
+    transform: translate(-3%, 3%) scale(0.9);
+    opacity: 0.5;
   }
   75% {
-    transform: translate(50px, 30px) rotate(270deg) scale(1.05);
-    opacity: 0.75;
-  }
-  100% {
-    transform: translate(0, 0) rotate(360deg) scale(1);
+    transform: translate(4%, 2%) scale(1.05);
     opacity: 0.7;
   }
 }
 
-@keyframes floatParticle {
+@keyframes particleFloat {
   0% {
-    transform: translateY(0) translateX(0);
+    transform: translateY(100vh) translateX(0) rotate(0deg);
     opacity: 0;
   }
   10% {
@@ -230,106 +270,122 @@ body {
     opacity: 0.4;
   }
   100% {
-    transform: translateY(-100vh) translateX(100px);
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
     opacity: 0;
   }
 }
 
-/* Contenido de bienvenida - TEXTOS NÍTIDOS */
+@keyframes connectionPulse {
+  0%, 100% {
+    opacity: 0.05;
+    transform: scaleX(0.8);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scaleX(1);
+  }
+}
+
+/* Contenido principal - Totalmente responsivo */
 .welcome-content {
   text-align: center;
-  max-width: 800px;
+  max-width: min(90vw, 1200px);
   width: 100%;
   animation: fadeInUp 1s ease-out;
   position: relative;
   z-index: 10;
+  padding: 0 clamp(10px, 3vw, 30px);
 }
 
 .welcome-header {
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 5vw, 60px);
 }
 
 .main-title {
   color: var(--blanco);
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 8vw, 4.5rem);
   font-weight: 700;
-  margin-bottom: 15px;
+  margin-bottom: clamp(10px, 2vw, 20px);
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(128, 0, 32, 0.5);
+    0 0 30px rgba(128, 0, 32, 0.6);
   animation: slideInFromTop 1s ease-out;
+  line-height: 1.1;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 3vw, 1.4rem);
   font-weight: 300;
   animation: slideInFromTop 1s ease-out 0.2s both;
   text-shadow: 
     1px 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(128, 0, 32, 0.3);
+    0 0 15px rgba(128, 0, 32, 0.4);
+  line-height: 1.4;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Tarjeta de bienvenida - SIN BLUR */
+/* Tarjeta de bienvenida responsiva */
 .welcome-card {
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 20px;
-  padding: 50px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: clamp(15px, 4vw, 25px);
+  padding: clamp(25px, 6vw, 60px) clamp(20px, 5vw, 50px);
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  margin: 30px 0;
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin: clamp(20px, 4vw, 40px) 0;
   animation: scaleIn 0.8s ease-out 0.4s both;
   position: relative;
   z-index: 10;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .welcome-message {
   color: var(--guindo);
-  font-size: 2.2rem;
-  margin-bottom: 15px;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  margin-bottom: clamp(10px, 2vw, 20px);
   font-weight: 600;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.2;
 }
 
 .welcome-description {
   color: var(--gris-oscuro);
-  font-size: 1.1rem;
-  margin-bottom: 35px;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  margin-bottom: clamp(25px, 5vw, 40px);
   line-height: 1.6;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Botones */
+/* Botones responsivos */
 .button-container {
   display: flex;
-  gap: 20px;
+  gap: clamp(15px, 3vw, 25px);
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .welcome-button {
-  padding: 16px 32px;
+  padding: clamp(12px, 3vw, 18px) clamp(20px, 4vw, 35px);
   border: none;
   border-radius: 50px;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 180px;
+  min-width: min(200px, 70vw);
   position: relative;
   overflow: hidden;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  flex: 1;
+  max-width: 300px;
 }
 
 .welcome-button::before {
@@ -376,13 +432,14 @@ body {
   box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
 }
 
-/* Footer */
+/* Footer responsivo */
 .welcome-footer {
-  margin-top: 30px;
-  color: rgba(255, 255, 255, 0.95);
+  margin-top: clamp(20px, 4vw, 35px);
+  color: rgba(255, 255, 255, 0.9);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  font-size: clamp(0.8rem, 2vw, 1rem);
 }
 
 .welcome-footer a {
@@ -397,7 +454,7 @@ body {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-/* Modal - SIN BLUR para mayor nitidez */
+/* Modal responsivo */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -410,14 +467,15 @@ body {
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
+  padding: clamp(10px, 3vw, 20px);
 }
 
 .modal-content {
   background: rgba(255, 255, 255, 0.98);
-  border-radius: 20px;
-  padding: 40px;
-  width: 90%;
-  max-width: 450px;
+  border-radius: clamp(15px, 4vw, 25px);
+  padding: clamp(25px, 5vw, 45px) clamp(20px, 4vw, 40px);
+  width: 100%;
+  max-width: min(95vw, 500px);
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
   box-shadow: 
@@ -428,18 +486,20 @@ body {
   overflow-y: auto;
 }
 
+/* ... (el resto del CSS de formularios y animaciones se mantiene similar pero con unidades responsivas) ... */
+
 .close-button {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: clamp(10px, 2vw, 15px);
+  right: clamp(15px, 3vw, 20px);
   background: rgba(255, 255, 255, 0.9);
   border: none;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   color: var(--gris-oscuro);
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 40px;
-  height: 40px;
+  width: clamp(35px, 8vw, 45px);
+  height: clamp(35px, 8vw, 45px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -456,28 +516,29 @@ body {
 
 .modal-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 4vw, 30px);
 }
 
 .modal-header h2 {
   color: var(--guindo);
-  font-size: 1.8rem;
-  margin-bottom: 8px;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  margin-bottom: clamp(5px, 1vw, 8px);
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
 }
 
 .modal-header p {
   color: var(--gris-oscuro);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Formulario */
+/* Formulario responsivo */
 .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(15px, 3vw, 20px);
 }
 
 .form-group {
@@ -490,11 +551,11 @@ body {
 
 .form-input {
   width: 100%;
-  padding: 16px 0 8px 0;
+  padding: clamp(12px, 3vw, 16px) 0 clamp(6px, 1.5vw, 8px) 0;
   border: none;
   border-bottom: 1px solid var(--gris);
   background: transparent;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   outline: none;
   transition: all 0.3s ease;
 }
@@ -506,15 +567,15 @@ body {
 .form-input:focus + .form-label,
 .form-input:not(:placeholder-shown) + .form-label {
   top: 0;
-  font-size: 12px;
+  font-size: clamp(10px, 2.5vw, 12px);
   color: var(--guindo);
 }
 
 .form-label {
   position: absolute;
-  top: 16px;
+  top: clamp(12px, 3vw, 16px);
   left: 0;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   color: var(--gris-oscuro);
   pointer-events: none;
   transition: all 0.3s ease;
@@ -538,15 +599,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  margin: clamp(8px, 2vw, 10px) 0;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .remember-me {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: clamp(6px, 1.5vw, 8px);
   color: var(--gris-oscuro);
   cursor: pointer;
+  font-size: clamp(12px, 2.5vw, 14px);
 }
 
 .remember-me input {
@@ -556,7 +620,7 @@ body {
 .forgot-password {
   color: var(--guindo);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: clamp(11px, 2.2vw, 13px);
 }
 
 .forgot-password:hover {
@@ -569,13 +633,13 @@ body {
   color: var(--blanco);
   border: none;
   border-radius: 8px;
-  padding: 16px;
-  font-size: 16px;
+  padding: clamp(12px, 3vw, 16px);
+  font-size: clamp(14px, 3vw, 16px);
   font-weight: 600;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s ease;
-  margin-top: 10px;
+  margin-top: clamp(8px, 2vw, 10px);
   box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
 }
 
@@ -607,8 +671,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
+  width: clamp(18px, 4vw, 22px);
+  height: clamp(18px, 4vw, 22px);
   border: 2px solid transparent;
   border-top: 2px solid var(--blanco);
   border-radius: 50%;
@@ -627,12 +691,13 @@ body {
 }
 
 .message {
-  padding: 12px 16px;
+  padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
   border-radius: 8px;
-  margin-top: 20px;
+  margin-top: clamp(15px, 3vw, 20px);
   text-align: center;
   font-weight: 500;
   animation: slideIn 0.5s ease-out;
+  font-size: clamp(12px, 2.5vw, 14px);
 }
 
 .message.success {
@@ -649,10 +714,11 @@ body {
 
 .modal-footer {
   text-align: center;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: clamp(15px, 3vw, 20px);
+  padding-top: clamp(15px, 3vw, 20px);
   border-top: 1px solid var(--gris);
   color: var(--gris-oscuro);
+  font-size: clamp(12px, 2.5vw, 14px);
 }
 
 .modal-footer a {
@@ -665,11 +731,11 @@ body {
   text-decoration: underline;
 }
 
-/* Animaciones */
+/* Animaciones responsivas */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(clamp(20px, 5vw, 30px));
   }
   to {
     opacity: 1;
@@ -680,7 +746,7 @@ body {
 @keyframes slideInFromTop {
   from {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(clamp(-30px, -8vw, -50px));
   }
   to {
     opacity: 1;
@@ -707,7 +773,7 @@ body {
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: scale(0.8) translateY(-20px);
+    transform: scale(0.8) translateY(clamp(-15px, -4vw, -20px));
   }
   to {
     opacity: 1;
@@ -718,7 +784,7 @@ body {
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(clamp(-8px, -2vw, -10px));
   }
   to {
     opacity: 1;
@@ -726,54 +792,53 @@ body {
   }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .main-title {
-    font-size: 2.5rem;
-  }
-  
-  .subtitle {
-    font-size: 1.1rem;
-  }
-  
+/* Responsive para móviles muy pequeños */
+@media (max-width: 480px) {
   .welcome-card {
-    padding: 30px 20px;
+    padding: 20px 15px;
   }
   
   .button-container {
     flex-direction: column;
-    align-items: center;
   }
   
   .welcome-button {
-    width: 100%;
-    max-width: 250px;
+    min-width: 100%;
   }
   
-  .modal-content {
-    padding: 30px 20px;
-    margin: 20px;
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
   
-  .ball {
-    transform: scale(0.7);
+  .floating-element {
+    display: none; /* Ocultamos algunos elementos en móviles muy pequeños */
   }
 }
 
-@media (max-width: 480px) {
+/* Para tablets y pantallas medianas */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .welcome-content {
+    max-width: 90%;
+  }
+  
   .main-title {
-    font-size: 2rem;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+  }
+}
+
+/* Para pantallas muy grandes */
+@media (min-width: 1440px) {
+  .welcome-content {
+    max-width: 1400px;
   }
   
-  .welcome-message {
-    font-size: 1.8rem;
+  .main-title {
+    font-size: 5rem;
   }
   
-  .modal-content {
-    padding: 25px 15px;
-  }
-  
-  .ball {
-    transform: scale(0.5);
+  .subtitle {
+    font-size: 1.6rem;
   }
 }
