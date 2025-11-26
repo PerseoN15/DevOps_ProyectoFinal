@@ -1,10 +1,11 @@
-// frontend/src/App.jsx
-import LoginPage from "./pages/LoginPage";
+/* eslint-disable react/react-in-jsx-scope */
+import React from "react";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <div>
-      <LoginPage />
+      <Login />
     </div>
   );
 }
