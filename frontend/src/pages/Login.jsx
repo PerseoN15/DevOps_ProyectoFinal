@@ -1,5 +1,4 @@
-// src/pages/Login.jsx
-import { useState } from "react";
+import React, { useState } from "react";   // 👈 CORREGIDO
 import API_URL from "../config/api";
 
 function Login() {
@@ -37,7 +36,6 @@ function Login() {
       const data = await resp.json();
 
       if (resp.ok && data.ok) {
-        // Mensaje que viene del backend: "Inicio de sesión correctamente"
         setMensaje(data.message || "Inicio de sesión correctamente");
       } else {
         setMensaje(data.message || "Usuario o contraseña incorrectos");
