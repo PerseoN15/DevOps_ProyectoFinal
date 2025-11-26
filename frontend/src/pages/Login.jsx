@@ -1,8 +1,8 @@
-// frontend/src/components/LoginForm.jsx
+// src/pages/Login.jsx
 import { useState } from "react";
 import API_URL from "../config/api";
 
-function LoginForm() {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -37,7 +37,7 @@ function LoginForm() {
       const data = await resp.json();
 
       if (resp.ok && data.ok) {
-        // Aquí se muestra exactamente el mensaje que definimos en el backend
+        // Mensaje que viene del backend: "Inicio de sesión correctamente"
         setMensaje(data.message || "Inicio de sesión correctamente");
       } else {
         setMensaje(data.message || "Usuario o contraseña incorrectos");
@@ -101,4 +101,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default Login;
