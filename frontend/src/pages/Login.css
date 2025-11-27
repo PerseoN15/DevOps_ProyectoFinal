@@ -510,6 +510,11 @@ body {
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
+  color: var(--texto); /* TEXTO NEGRO */
+}
+
+.form-input::placeholder {
+  color: transparent;
 }
 
 .form-input:focus {
