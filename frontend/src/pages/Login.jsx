@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import API_URL from "../config/api";
-import "./Login.css"; // Archivo CSS separado
+import "./Login.css";
 
 function Login() {
-  const [activeModal, setActiveModal] = useState(null); // 'login' o 'register'
+  const [activeModal, setActiveModal] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,7 +15,6 @@ function Login() {
     e.preventDefault();
     setMensaje("");
 
-    // Validaciones frontend
     if (!username || !password) {
       setMensaje("Por favor ingresa usuario y contraseña");
       return;
@@ -41,7 +40,6 @@ function Login() {
 
       if (resp.ok && data.ok) {
         setMensaje(data.message || "Inicio de sesión correctamente");
-        // Cerrar modal después de login exitoso
         setTimeout(() => {
           setActiveModal(null);
           setMensaje("");
@@ -61,7 +59,6 @@ function Login() {
     e.preventDefault();
     setMensaje("");
 
-    // Validaciones de registro
     if (!username || !password || !email || !confirmPassword) {
       setMensaje("Por favor completa todos los campos");
       return;
@@ -95,11 +92,9 @@ function Login() {
 
       if (resp.ok && data.ok) {
         setMensaje(data.message || "Registro exitoso");
-        // Cerrar modal después de registro exitoso
         setTimeout(() => {
           setActiveModal(null);
           setMensaje("");
-          // Limpiar formulario
           setUsername("");
           setPassword("");
           setConfirmPassword("");
@@ -128,6 +123,18 @@ function Login() {
 
   return (
     <div className="welcome-container">
+      {/* Fondo animado con partículas */}
+      <div className="animated-background">
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+      </div>
+
       {/* Elementos decorativos circulares */}
       <div className="decorative-element"></div>
       <div className="decorative-element"></div>

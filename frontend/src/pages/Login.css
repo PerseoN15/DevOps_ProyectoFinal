@@ -38,10 +38,125 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
-  width: 100vw; /*  Asegura que ocupe todo el ancho de la ventana */
+  width: 100vw;
 }
 
-/* Fondo con patrón sutil */
+/* Fondo animado con partículas */
+.animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  background: var(--guindo-suave);
+  border-radius: 50%;
+  animation: floatParticle 15s infinite linear;
+  opacity: 0.4;
+}
+
+.particle:nth-child(1) {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+  animation-duration: 20s;
+}
+
+.particle:nth-child(2) {
+  width: 120px;
+  height: 120px;
+  top: 70%;
+  left: 80%;
+  animation-delay: 2s;
+  animation-duration: 25s;
+}
+
+.particle:nth-child(3) {
+  width: 60px;
+  height: 60px;
+  top: 40%;
+  left: 90%;
+  animation-delay: 4s;
+  animation-duration: 18s;
+}
+
+.particle:nth-child(4) {
+  width: 100px;
+  height: 100px;
+  top: 80%;
+  left: 10%;
+  animation-delay: 6s;
+  animation-duration: 22s;
+}
+
+.particle:nth-child(5) {
+  width: 70px;
+  height: 70px;
+  top: 20%;
+  left: 70%;
+  animation-delay: 8s;
+  animation-duration: 19s;
+}
+
+.particle:nth-child(6) {
+  width: 90px;
+  height: 90px;
+  top: 60%;
+  left: 20%;
+  animation-delay: 10s;
+  animation-duration: 24s;
+}
+
+.particle:nth-child(7) {
+  width: 110px;
+  height: 110px;
+  top: 30%;
+  left: 40%;
+  animation-delay: 12s;
+  animation-duration: 21s;
+}
+
+.particle:nth-child(8) {
+  width: 50px;
+  height: 50px;
+  top: 85%;
+  left: 60%;
+  animation-delay: 14s;
+  animation-duration: 17s;
+}
+
+/* Animación de partículas flotantes */
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) rotate(90deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px) rotate(180deg);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-20px) translateX(10px) rotate(270deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+/* Efecto de gradiente animado en el fondo */
 .welcome-container::before {
   content: '';
   position: absolute;
@@ -54,6 +169,20 @@ body {
     radial-gradient(circle at 80% 20%, var(--guindo-suave) 0%, transparent 50%);
   opacity: 0.3;
   z-index: 0;
+  animation: gradientShift 10s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% {
+    background: 
+      radial-gradient(circle at 20% 80%, var(--guindo-suave) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, var(--guindo-suave) 0%, transparent 50%);
+  }
+  100% {
+    background: 
+      radial-gradient(circle at 30% 70%, var(--guindo-suave) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, var(--guindo-suave) 0%, transparent 50%);
+  }
 }
 
 /* Elementos decorativos circulares */
@@ -111,9 +240,9 @@ body {
 
 /* Contenido principal - MÁS ANCHO Y MEJOR CENTRADO */
 .welcome-content {
-  width: 90vw; /* 👈 Ocupa el 90% del ancho de la ventana */
-  max-width: 1200px; /* 👈 Máximo más amplio para pantallas grandes */
-  margin: 0 auto; /* 👈 Centra horizontalmente */
+  width: 90vw;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 3rem;
   background: rgba(255, 255, 255, 0.92);
   border-radius: 20px;
@@ -302,9 +431,9 @@ body {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 3rem;
-  width: 90vw; /*  Mismo enfoque responsivo */
-  max-width: 500px; /*  Máximo para modales */
-  margin: 0 auto; /* Centrado */
+  width: 90vw;
+  max-width: 500px;
+  margin: 0 auto;
   position: relative;
   animation: modalSlideIn 0.4s ease-out;
   box-shadow: 
@@ -633,7 +762,7 @@ body {
   .welcome-content {
     padding: 2rem;
     margin: 1rem;
-    width: 95vw; /*  Más ancho en móviles */
+    width: 95vw;
   }
   
   .main-title {
@@ -656,7 +785,7 @@ body {
   .modal-content {
     padding: 2rem;
     margin: 1rem;
-    width: 95vw; /*  Más ancho en móviles */
+    width: 95vw;
   }
   
   .form-options {
@@ -673,12 +802,12 @@ body {
 @media (max-width: 480px) {
   .welcome-content {
     padding: 1.5rem;
-    width: 98vw; /*  Casi todo el ancho en móviles pequeños */
+    width: 98vw;
   }
   
   .modal-content {
     padding: 1.5rem;
-    width: 98vw; /*  Casi todo el ancho en móviles pequeños */
+    width: 98vw;
   }
   
   .main-title {
@@ -693,6 +822,6 @@ body {
 /* Para pantallas muy grandes (más de 1200px) */
 @media (min-width: 1200px) {
   .welcome-content {
-    max-width: 1100px; /*  Un poco más ancho en pantallas grandes */
+    max-width: 1100px;
   }
 }
