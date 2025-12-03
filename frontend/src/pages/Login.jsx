@@ -149,7 +149,7 @@ function Login() {
         </header>
 
         <div className="welcome-card">
-          <h2 className="welcome-message">¡Bienvenuudo!</h2>
+          <h2 className="welcome-message">¡Bienvendo!</h2>
           <p className="welcome-description">
             Accede a tu cuenta o regístrate para comenzar a utilizar todas las funcionalidades del sistema.
           </p>
