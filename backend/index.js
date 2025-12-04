@@ -1,52 +1,62 @@
-// backend/db/TestUserDB.js
-import sqlite3 from "sqlite3";
-import path from "path";
+// backend/index.js
+import express from "express";
+import cors from "cors";
+import fs from "fs";
+import db from "./db/db.js";
+import authRoutes from "./routes/authRoutes.js";
 
-// HOME en AWS es /home/ec2-user normalmente
-const HOME_DIR = process.env.HOME || "/home/ec2-user";
+// IMPORTANTE: esto hace que se ejecute el constructor y cree la base
+import { testUserDB } from "./db/TestUserDB.js";
 
-// Archivo físico de la base en el servidor
-const DB_PATH = path.join(HOME_DIR, "db", "login_test.sqlite");
+const app = express();
+const PORT = 4000;
 
-class TestUserDB {
-  constructor() {
-    this.db = new sqlite3.Database(DB_PATH);
-    this.init();
-  }
+const VERSION_FILE = "./backend_version.txt";
 
-  init() {
-    this.db.serialize(() => {
-      // Crear tabla si no existe
-      this.db.run(`
-        CREATE TABLE IF NOT EXISTS users (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          username TEXT UNIQUE,
-          password TEXT
-        )
-      `);
-
-      // Usuario de prueba que vivirá en AWS
-      this.db.run(
-        `
-        INSERT OR IGNORE INTO users (username, password)
-        VALUES ('usuario_prueba', '123456')
-        `
-      );
-    });
-  }
-
-  getUserByUsername(username) {
-    return new Promise((resolve, reject) => {
-      this.db.get(
-        "SELECT * FROM users WHERE username = ?",
-        [username],
-        (err, row) => {
-          if (err) return reject(err);
-          resolve(row);
-        }
-      );
-    });
+function getBackendVersion() {
+  try {
+    const raw = fs.readFileSync(VERSION_FILE, "utf8");
+    return raw.trim() || "1";
+  } catch (err) {
+    console.warn(
+      "No se pudo leer backend_version.txt, usando versión 1 por defecto"
+    );
+    return "1";
   }
 }
 
-export const testUserDB = new TestUserDB();
+app.use(cors());
+app.use(express.json());
+
+// Rutas de autenticación (incluye /api/login-test)
+app.use("/api", authRoutes);
+
+let tasks = [
+  { id: 1, title: "Taea 2 " },
+  { id: 2, title: "Tarea de ejemplo " },
+];
+
+app.get("/", (req, res) => {
+  res.json({ message: "API funcionando" });
+});
+
+app.get("/api/hello", (req, res) => {
+  res.json({ message: "Hola desde el backend" });
+});
+
+app.get("/api/tasks", (req, res) => {
+  res.json(tasks);
+});
+
+app.get("/api/version", (req, res) => {
+  const version = getBackendVersion();
+  res.json({
+    version,
+    updatedAt: new Date().toISOString(),
+  });
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor backend en puerto ${PORT}`);
+  console.log(`Versión actual del backend: ${getBackendVersion()}`);
+});
