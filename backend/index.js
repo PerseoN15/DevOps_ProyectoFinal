@@ -28,7 +28,7 @@ function getBackendVersion() {
 app.use(cors());
 app.use(express.json());
 
-// Rutas de autenticación (incluye /api/login-test)
+
 app.use("/api", authRoutes);
 
 let tasks = [
@@ -58,5 +58,5 @@ app.get("/api/version", (req, res) => {
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Servidor backend en puerto ${PORT}`);
-  console.log(`Versión actual del backend: ${getBackendVersion()}`);
+  console.log(`Version actual del backend: ${getBackendVersion()}`);
 });
