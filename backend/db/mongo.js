@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const uri = "mongodb+srv://admin:<itsj>@cluster0.9hug4ig.mongodb.net/?appName=Cluster0";
+const uri = "mongodb+srv://andy:LkT4KD4uKzkEiLUK@devops.u72s4oa.mongodb.net/devops?retryWrites=true&w=majority&appName=devops";
 
 const client = new MongoClient(uri);
 const dbName = "devops";

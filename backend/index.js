@@ -3,8 +3,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 
-// Si sigues usando la base de prueba SQLite
-import db from "./db/db.js";
+
 
 // Conexión a MongoDB
 import { connectDB } from "./db/mongo.js";
