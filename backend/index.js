@@ -3,10 +3,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 
-// Cargar variables de entorno (.env del backend)
-import dotenv from "dotenv";
-dotenv.config();
-
+import authRoutes from "./routes/authRoutes.js";
 // Conexión a MongoDB
 import { connectDB } from "./db/mongo.js";
 
@@ -17,9 +14,6 @@ const app = express();
 const PORT = 4000;
 
 const VERSION_FILE = "./backend_version.txt";
-
-// Conectar a MongoDB al iniciar el servidor
-await connectDB();
 
 function getBackendVersion() {
   try {
@@ -37,7 +31,6 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas principales (login / register)
-import authRoutes from "./routes/authRoutes.js";
 app.use("/api", authRoutes);
 
 // Datos de ejemplo para /api/tasks
@@ -70,7 +63,7 @@ app.get("/api/version", (req, res) => {
   });
 });
 
-// ✅ Ruta para probar la conexión a MongoDB
+// Ruta para probar la conexión a MongoDB
 app.get("/api/test-mongo", async (req, res) => {
   try {
     const dbMongo = await connectDB();
@@ -94,5 +87,5 @@ app.get("/api/test-mongo", async (req, res) => {
 // Iniciar servidor
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Servidor backend en puerto ${PORT}`);
-  console.log(`Version actual del backend: ${getBackendVersion()()}`);
+  console.log(`Version actual del backend: ${getBackendVersion()}`);
 });
