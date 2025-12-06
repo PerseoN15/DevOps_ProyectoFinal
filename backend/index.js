@@ -3,11 +3,15 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 
-import authRoutes from "./routes/authRoutes.js";
+// Si sigues usando la base de prueba SQLite
+import db from "./db/db.js";
+
 // Conexión a MongoDB
 import { connectDB } from "./db/mongo.js";
 
-// IMPORTANTE: esto hace que se ejecute el constructor y cree la base de prueba SQLite
+// Rutas de autenticación (login / register)
+import authRoutes from "./routes/authRoutes.js";
+
 import { testUserDB } from "./db/TestUserDB.js";
 
 const app = express();
@@ -30,7 +34,6 @@ function getBackendVersion() {
 app.use(cors());
 app.use(express.json());
 
-// Rutas principales (login / register)
 app.use("/api", authRoutes);
 
 // Datos de ejemplo para /api/tasks
@@ -63,7 +66,6 @@ app.get("/api/version", (req, res) => {
   });
 });
 
-// Ruta para probar la conexión a MongoDB
 app.get("/api/test-mongo", async (req, res) => {
   try {
     const dbMongo = await connectDB();
