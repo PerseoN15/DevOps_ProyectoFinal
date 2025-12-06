@@ -2,11 +2,8 @@
 import express from "express";
 import cors from "cors";
 import fs from "fs";
+import { connectDB, User } from "./db/mongo.js";
 
-
-
-// Conexión a MongoDB
-import { connectDB } from "./db/mongo.js";
 
 // Rutas de autenticación (login / register)
 import authRoutes from "./routes/authRoutes.js";
@@ -65,23 +62,24 @@ app.get("/api/version", (req, res) => {
 
 app.get("/api/test-mongo", async (req, res) => {
   try {
-    const dbMongo = await connectDB();
-    const users = dbMongo.collection("users");
-    const count = await users.countDocuments();
+    await connectDB();
+
+    const count = await User.countDocuments();
 
     res.json({
       ok: true,
-      message: "Conexión a MongoDB exitosa",
+      message: "Conexión a MongoDB exitosa (Mongoose)",
       totalUsers: count,
     });
   } catch (error) {
     console.error("Error en /api/test-mongo:", error);
     res.status(500).json({
       ok: false,
-      message: "Error conectando a MongoDB",
+      message: "Error conectando a MongoDB con Mongoose",
     });
   }
 });
+
 
 // Iniciar servidor
 app.listen(PORT, "0.0.0.0", () => {
