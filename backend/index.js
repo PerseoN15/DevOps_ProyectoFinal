@@ -12,8 +12,6 @@ import { connectDB } from "./db/mongo.js";
 // Rutas de autenticación (login / register)
 import authRoutes from "./routes/authRoutes.js";
 
-import { testUserDB } from "./db/TestUserDB.js";
-
 const app = express();
 const PORT = 4000;
 
