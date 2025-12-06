@@ -28,7 +28,7 @@ function getBackendVersion() {
 app.use(cors());
 app.use(express.json());
 
-
+// 👇 Aquí montas las rutas de autenticación en /api
 app.use("/api", authRoutes);
 
 let tasks = [
