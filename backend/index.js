@@ -2,16 +2,24 @@
 import express from "express";
 import cors from "cors";
 import fs from "fs";
-import db from "./db/db.js";
-import authRoutes from "./routes/authRoutes.js";
 
-// IMPORTANTE: esto hace que se ejecute el constructor y cree la base
+// Cargar variables de entorno (.env del backend)
+import dotenv from "dotenv";
+dotenv.config();
+
+// Conexión a MongoDB
+import { connectDB } from "./db/mongo.js";
+
+// IMPORTANTE: esto hace que se ejecute el constructor y cree la base de prueba SQLite
 import { testUserDB } from "./db/TestUserDB.js";
 
 const app = express();
 const PORT = 4000;
 
 const VERSION_FILE = "./backend_version.txt";
+
+// Conectar a MongoDB al iniciar el servidor
+await connectDB();
 
 function getBackendVersion() {
   try {
@@ -28,26 +36,32 @@ function getBackendVersion() {
 app.use(cors());
 app.use(express.json());
 
-// 👇 Aquí montas las rutas de autenticación en /api
+// Rutas principales (login / register)
+import authRoutes from "./routes/authRoutes.js";
 app.use("/api", authRoutes);
 
+// Datos de ejemplo para /api/tasks
 let tasks = [
   { id: 1, title: "Taea 2 " },
   { id: 2, title: "Tarea de ejemplo " },
 ];
 
+// Ruta raíz simple
 app.get("/", (req, res) => {
   res.json({ message: "API funcionando" });
 });
 
+// Ruta de prueba básica
 app.get("/api/hello", (req, res) => {
   res.json({ message: "Hola desde el backend" });
 });
 
+// Ruta de tareas de ejemplo
 app.get("/api/tasks", (req, res) => {
   res.json(tasks);
 });
 
+// Ruta para ver la versión del backend
 app.get("/api/version", (req, res) => {
   const version = getBackendVersion();
   res.json({
@@ -56,7 +70,29 @@ app.get("/api/version", (req, res) => {
   });
 });
 
+// ✅ Ruta para probar la conexión a MongoDB
+app.get("/api/test-mongo", async (req, res) => {
+  try {
+    const dbMongo = await connectDB();
+    const users = dbMongo.collection("users");
+    const count = await users.countDocuments();
+
+    res.json({
+      ok: true,
+      message: "Conexión a MongoDB exitosa",
+      totalUsers: count,
+    });
+  } catch (error) {
+    console.error("Error en /api/test-mongo:", error);
+    res.status(500).json({
+      ok: false,
+      message: "Error conectando a MongoDB",
+    });
+  }
+});
+
+// Iniciar servidor
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Servidor backend en puerto ${PORT}`);
-  console.log(`Version actual del backend: ${getBackendVersion()}`);
+  console.log(`Version actual del backend: ${getBackendVersion()()}`);
 });
