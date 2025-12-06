@@ -98,7 +98,6 @@ pipeline {
 
         /* ============================================================
          *   STAGE: ACTUALIZAR VERSIÓN DEL BACKEND EN EC2
-         *   (OJO: este archivo luego será sobreescrito por el reset)
          * ============================================================ */
         stage('Actualizar versión del backend') {
             steps {
@@ -140,8 +139,13 @@ ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
   set -e
 
   echo ">> Entrando a la instancia EC2..."
-
   cd DevOps_ProyectoFinal
+
+  echo ">> Corrigiendo permisos y limpiando backend/node_modules..."
+  sudo chown -R ec2-user:ec2-user backend
+  sudo find backend -type d -exec chmod u+rwx,go+rx {} \\;
+  sudo find backend -type f -exec chmod u+rw,go+r {} \\;
+  sudo rm -rf backend/node_modules
 
   echo ">> Forzando sincronización con GitHub..."
   git fetch origin main
