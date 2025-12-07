@@ -17,7 +17,7 @@ function Login() {
     e.preventDefault();
     setMensaje("");
 
-    if (!username || !password || !loginRole) {
+    if (!username || !password) {
       setMensaje("Por favor completa todos los campos");
       return;
     }
@@ -35,7 +35,7 @@ function Login() {
       const resp = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, role: loginRole }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await resp.json();
@@ -47,7 +47,7 @@ function Login() {
           setMensaje("");
         }, 2000);
       } else {
-        setMensaje(data.message || "Usuario, contraseña o rol incorrectos");
+        setMensaje(data.message || "Usuario o contraseña incorrectos");
       }
     } catch (error) {
       console.error(error);
@@ -164,7 +164,6 @@ function Login() {
         </header>
 
         <div className="welcome-card">
-          <div className="card-icon">👋</div>
           <h2 className="welcome-message">
             ¡Bienvenido a la plataforma!
           </h2>
@@ -251,71 +250,6 @@ function Login() {
                     Contraseña
                   </label>
                   <div className="input-underline"></div>
-                </div>
-              </div>
-
-              {/* Selector de rol para login */}
-              <div className="form-group">
-                <label className="section-label">
-                  <span className="label-icon">👥</span>
-                  Selecciona tu rol
-                </label>
-                <div className="role-selector">
-                  <div className="radio-group">
-                    <label className={`radio-option ${loginRole === 'administrador' ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="login-role"
-                        value="administrador"
-                        checked={loginRole === 'administrador'}
-                        onChange={(e) => setLoginRole(e.target.value)}
-                        className="radio-input"
-                      />
-                      <span className="radio-label">
-                        <span className="role-icon">👨‍💼</span>
-                        <span className="role-text">
-                          <span className="role-title">Administrador</span>
-                          <span className="role-desc">Acceso completo</span>
-                        </span>
-                      </span>
-                    </label>
-
-                    <label className={`radio-option ${loginRole === 'tutor' ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="login-role"
-                        value="tutor"
-                        checked={loginRole === 'tutor'}
-                        onChange={(e) => setLoginRole(e.target.value)}
-                        className="radio-input"
-                      />
-                      <span className="radio-label">
-                        <span className="role-icon">👩‍🏫</span>
-                        <span className="role-text">
-                          <span className="role-title">Tutor</span>
-                          <span className="role-desc">Gestión de alumnos</span>
-                        </span>
-                      </span>
-                    </label>
-
-                    <label className={`radio-option ${loginRole === 'alumno' ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="login-role"
-                        value="alumno"
-                        checked={loginRole === 'alumno'}
-                        onChange={(e) => setLoginRole(e.target.value)}
-                        className="radio-input"
-                      />
-                      <span className="radio-label">
-                        <span className="role-icon">👨‍🎓</span>
-                        <span className="role-text">
-                          <span className="role-title">Alumno</span>
-                          <span className="role-desc">Acceso estudiante</span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
                 </div>
               </div>
 
