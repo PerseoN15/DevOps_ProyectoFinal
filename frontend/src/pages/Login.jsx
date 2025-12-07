@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import API_URL from "../config/api";
 import "./Login.css";
 
@@ -524,5 +525,9 @@ function Login({ onLoginSuccess }) {
     </div>
   );
 }
+
+Login.propTypes = {
+  onLoginSuccess: PropTypes.func.isRequired,
+};
 
 export default Login;

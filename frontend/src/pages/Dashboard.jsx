@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./Dashboard.css";
 
 function Dashboard({ user, onLogout }) {
@@ -396,5 +397,17 @@ function Dashboard({ user, onLogout }) {
     </div>
   );
 }
+
+Dashboard.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    nombre: PropTypes.string,
+    fecha_nacimiento: PropTypes.string,
+    role: PropTypes.string,
+  }).isRequired,
+  onLogout: PropTypes.func.isRequired,
+};
 
 export default Dashboard;
