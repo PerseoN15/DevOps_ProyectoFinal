@@ -8,6 +8,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [loginRole, setLoginRole] = useState(""); // Nuevo estado para rol en login
+  const [registerRole, setRegisterRole] = useState("alumno"); // Nuevo estado para rol en registro
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
 
@@ -15,8 +17,8 @@ function Login() {
     e.preventDefault();
     setMensaje("");
 
-    if (!username || !password) {
-      setMensaje("Por favor ingresa usuario y contraseña");
+    if (!username || !password || !loginRole) {
+      setMensaje("Por favor completa todos los campos");
       return;
     }
 
@@ -33,7 +35,7 @@ function Login() {
       const resp = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, role: loginRole }), // Agregar rol al login
       });
 
       const data = await resp.json();
@@ -45,7 +47,7 @@ function Login() {
           setMensaje("");
         }, 2000);
       } else {
-        setMensaje(data.message || "Usuario o contraseña incorrectos");
+        setMensaje(data.message || "Usuario, contraseña o rol incorrectos");
       }
     } catch (error) {
       console.error(error);
@@ -59,7 +61,7 @@ function Login() {
     e.preventDefault();
     setMensaje("");
 
-    if (!username || !password || !email || !confirmPassword) {
+    if (!username || !password || !email || !confirmPassword || !registerRole) {
       setMensaje("Por favor completa todos los campos");
       return;
     }
@@ -85,7 +87,12 @@ function Login() {
       const resp = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, email }),
+        body: JSON.stringify({ 
+          username, 
+          password, 
+          email,
+          role: registerRole // Agregar rol al registro
+        }),
       });
 
       const data = await resp.json();
@@ -99,6 +106,8 @@ function Login() {
           setPassword("");
           setConfirmPassword("");
           setEmail("");
+          setRegisterRole("alumno");
+          setLoginRole("");
         }, 2000);
       } else {
         setMensaje(data.message || "Error en el registro");
@@ -118,6 +127,8 @@ function Login() {
     setPassword("");
     setConfirmPassword("");
     setEmail("");
+    setLoginRole("");
+    setRegisterRole("alumno");
     setCargando(false);
   };
 
@@ -219,6 +230,25 @@ function Login() {
                 </div>
               </div>
 
+              {/* 🔹 Selector de rol para login */}
+              <div className="form-group">
+                <div className="input-container">
+                  <select
+                    id="login-role"
+                    value={loginRole}
+                    onChange={(e) => setLoginRole(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Selecciona tu rol</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="tutor">Tutor</option>
+                    <option value="alumno">Alumno</option>
+                  </select>
+                  <label htmlFor="login-role" className="form-label">Rol</label>
+                  <div className="input-underline"></div>
+                </div>
+              </div>
+
               <div className="form-options">
                 <label className="remember-me">
                   <input type="checkbox" />
@@ -248,7 +278,18 @@ function Login() {
             )}
 
             <div className="modal-footer">
-              <p>¿No tienes cuenta? <a href="#register" onClick={(e) => { e.preventDefault(); setActiveModal('register'); }}>Regístrate aquí</a></p>
+              <p>
+                ¿No tienes cuenta?{" "}
+                <a
+                  href="#register"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveModal("register");
+                  }}
+                >
+                  Regístrate aquí
+                </a>
+              </p>
             </div>
           </div>
         </div>
@@ -294,6 +335,24 @@ function Login() {
                     placeholder=" "
                   />
                   <label htmlFor="register-email" className="form-label">Email</label>
+                  <div className="input-underline"></div>
+                </div>
+              </div>
+
+              {/* 🔹 Selector de rol para registro */}
+              <div className="form-group">
+                <div className="input-container">
+                  <select
+                    id="register-role"
+                    value={registerRole}
+                    onChange={(e) => setRegisterRole(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="administrador">Administrador</option>
+                    <option value="tutor">Tutor</option>
+                    <option value="alumno">Alumno</option>
+                  </select>
+                  <label htmlFor="register-role" className="form-label">Rol</label>
                   <div className="input-underline"></div>
                 </div>
               </div>
@@ -347,7 +406,18 @@ function Login() {
             )}
 
             <div className="modal-footer">
-              <p>¿Ya tienes cuenta? <a href="#login" onClick={(e) => { e.preventDefault(); setActiveModal('login'); }}>Inicia sesión aquí</a></p>
+              <p>
+                ¿Ya tienes cuenta?{" "}
+                <a
+                  href="#login"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveModal("login");
+                  }}
+                >
+                  Inicia sesión aquí
+                </a>
+              </p>
             </div>
           </div>
         </div>
