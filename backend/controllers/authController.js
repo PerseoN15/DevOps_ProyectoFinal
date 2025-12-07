@@ -1,34 +1,50 @@
-import { connectDB } from "../db/mongo.js";
+const { pool } = require('../db/dbMySql.js');
+const bcrypt = require('bcrypt');
 
-// LOGIN
-export const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({
       ok: false,
-      message: "Usuario y contraseña son obligatorios",
+      message: "Usuario y contrasena son obligatorios",
     });
   }
 
   try {
-    const db = await connectDB();
-    const users = db.collection("users");
+    const [rows] = await pool.query(
+      'SELECT * FROM users WHERE username = ?',
+      [username]
+    );
 
-    const user = await users.findOne({ username, password });
-
-    if (!user) {
+    if (rows.length === 0) {
       return res.status(401).json({
         ok: false,
-        message: "Usuario o contraseña incorrectos",
+        message: "Usuario o contrasena incorrectos",
+      });
+    }
+
+    const user = rows[0];
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({
+        ok: false,
+        message: "Usuario o contrasena incorrectos",
       });
     }
 
     return res.json({
       ok: true,
-      message: "Inicio de sesión correctamente",
-      username: user.username,
-      email: user.email,
+      message: "Inicio de sesion correctamente",
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        nombre: user.nombre,
+        fecha_nacimiento: user.fecha_nacimiento,
+        role: user.role
+      }
     });
   } catch (error) {
     console.error("Error en login:", error);
@@ -39,40 +55,58 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// REGISTER
-export const registerUser = async (req, res) => {
-  const { username, password, email } = req.body;
+const registerUser = async (req, res) => {
+  const { username, password, email, nombre, fecha_nacimiento, role } = req.body;
 
-  if (!username || !password || !email) {
+  if (!username || !password || !email || !nombre || !fecha_nacimiento) {
     return res.status(400).json({
       ok: false,
-      message: "Usuario, correo y contraseña son obligatorios",
+      message: "Todos los campos son obligatorios",
+    });
+  }
+
+  if (username.length < 3) {
+    return res.status(400).json({
+      ok: false,
+      message: "El usuario debe tener al menos 3 caracteres",
+    });
+  }
+
+  if (password.length < 4) {
+    return res.status(400).json({
+      ok: false,
+      message: "La contrasena debe tener al menos 4 caracteres",
+    });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      ok: false,
+      message: "Email invalido",
     });
   }
 
   try {
-    const db = await connectDB();
-    const users = db.collection("users");
+    const [existing] = await pool.query(
+      'SELECT * FROM users WHERE username = ? OR email = ?',
+      [username, email]
+    );
 
-    const existing = await users.findOne({
-      $or: [{ username }, { email }],
-    });
-
-    if (existing) {
+    if (existing.length > 0) {
       return res.status(400).json({
         ok: false,
-        message: "El usuario o el correo ya está registrado",
+        message: "El usuario o el correo ya esta registrado",
       });
     }
 
-    await users.insertOne({
-      username,
-      password,
-      email,
-      provider: "local",
-      provider_id: null,
-      createdAt: new Date(),
-    });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const [result] = await pool.query(
+      `INSERT INTO users (username, password, email, nombre, fecha_nacimiento, role, created_at) 
+       VALUES (?, ?, ?, ?, ?, ?, NOW())`,
+      [username, hashedPassword, email, nombre, fecha_nacimiento, role || 'alumno']
+    );
 
     return res.status(201).json({
       ok: true,
@@ -88,3 +122,5 @@ export const registerUser = async (req, res) => {
     });
   }
 };
+
+module.exports = { loginUser, registerUser };

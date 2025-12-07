@@ -1,19 +1,24 @@
 {
-  "name": "backend",
+  "name": "backend-tutorias",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de tutorias ITSJ - Backend",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["tutorias", "education"],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "sqlite3": "^5.1.7"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
