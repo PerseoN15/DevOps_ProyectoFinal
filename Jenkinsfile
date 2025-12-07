@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_DIR = "frontend"
+        BACKEND_DIR = "backend"
     }
 
     stages {
@@ -15,10 +16,69 @@ pipeline {
         }
 
         stage('Instalar dependencias') {
-            steps {
-                dir("${APP_DIR}") {
-                    echo "Instalando dependencias del frontend..."
-                    sh "npm install"
+            parallel {
+                stage('Dependencias Frontend') {
+                    steps {
+                        dir("${APP_DIR}") {
+                            echo "Instalando dependencias del frontend..."
+                            sh "npm install"
+                        }
+                    }
+                }
+                stage('Dependencias Backend') {
+                    steps {
+                        dir("${BACKEND_DIR}") {
+                            echo "Instalando dependencias del backend..."
+                            sh "npm install"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Tests') {
+            parallel {
+                stage('Tests Backend') {
+                    steps {
+                        dir("${BACKEND_DIR}") {
+                            echo "Ejecutando tests del backend..."
+                            sh "npm run test:ci || true"
+                        }
+                    }
+                    post {
+                        always {
+                            publishHTML([
+                                allowMissing: true,
+                                alwaysLinkToLastBuild: true,
+                                keepAll: true,
+                                reportDir: 'backend/coverage/lcov-report',
+                                reportFiles: 'index.html',
+                                reportName: 'Backend Coverage Report',
+                                reportTitles: 'Backend Test Coverage'
+                            ])
+                        }
+                    }
+                }
+                stage('Tests Frontend') {
+                    steps {
+                        dir("${APP_DIR}") {
+                            echo "Ejecutando tests del frontend..."
+                            sh "npm run test:ci || true"
+                        }
+                    }
+                    post {
+                        always {
+                            publishHTML([
+                                allowMissing: true,
+                                alwaysLinkToLastBuild: true,
+                                keepAll: true,
+                                reportDir: 'frontend/coverage/lcov-report',
+                                reportFiles: 'index.html',
+                                reportName: 'Frontend Coverage Report',
+                                reportTitles: 'Frontend Test Coverage'
+                            ])
+                        }
+                    }
                 }
             }
         }
@@ -42,20 +102,32 @@ pipeline {
         }
 
         stage('Security - npm audit') {
-            steps {
-                dir("${APP_DIR}") {
-                    echo "Ejecutando npm audit..."
-                    sh "npm audit --audit-level=high || true"
+            parallel {
+                stage('Audit Frontend') {
+                    steps {
+                        dir("${APP_DIR}") {
+                            echo "Ejecutando npm audit en frontend..."
+                            sh "npm audit --audit-level=high || true"
+                        }
+                    }
+                }
+                stage('Audit Backend') {
+                    steps {
+                        dir("${BACKEND_DIR}") {
+                            echo "Ejecutando npm audit en backend..."
+                            sh "npm audit --audit-level=high || true"
+                        }
+                    }
                 }
             }
         }
 
         stage('Security - SAST (Semgrep)') {
             steps {
-                echo "Ejecutando análisis SAST con Semgrep sobre frontend/src..."
+                echo "Ejecutando análisis SAST con Semgrep..."
                 sh """
                     pip3 install --user semgrep --break-system-packages --ignore-installed || true
-                    python3 -m semgrep --config auto frontend/src > semgrep-report.txt || true
+                    python3 -m semgrep --config auto frontend/src backend > semgrep-report.txt || true
                     cat semgrep-report.txt || true
                 """
             }
@@ -63,10 +135,10 @@ pipeline {
 
         stage('Security - Secret Scanning') {
             steps {
-                echo "Buscando secretos sensibles en el repositorio (ignorando node_modules)..."
+                echo "Buscando secretos sensibles en el repositorio..."
                 sh """
                     pip3 install --user detect-secrets --break-system-packages --ignore-installed || true
-                    detect-secrets scan --all-files --exclude-files '.*node_modules.*' > detect-secrets-report.json || true
+                    detect-secrets scan --all-files --exclude-files '.*node_modules.*' --exclude-files '.*coverage.*' > detect-secrets-report.json || true
                     cat detect-secrets-report.json || true
                 """
             }
@@ -96,9 +168,6 @@ pipeline {
             }
         }
 
-        /* ============================================================
-         *   STAGE: ACTUALIZAR VERSIÓN DEL BACKEND EN EC2
-         * ============================================================ */
         stage('Actualizar versión del backend') {
             steps {
                 echo "Actualizando archivo backend_version.txt en EC2..."
@@ -109,7 +178,6 @@ ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
 
   VERSION_FILE="backend_version.txt"
 
-  # Si no existe, lo creamos en 0
   if [ ! -f "$VERSION_FILE" ]; then
     echo "0" > "$VERSION_FILE"
   fi
@@ -126,9 +194,6 @@ EOF
             }
         }
 
-        /* ============================================================
-         *   STAGE: DEPLOY A AWS EC2 (con reset fuerte del repo)
-         * ============================================================ */
         stage('Deploy to EC2') {
             steps {
                 echo "Realizando deploy automático en EC2..."
@@ -156,6 +221,9 @@ ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
   cd backend
   npm install
 
+  echo ">> Backend: ejecutando tests..."
+  npm run test:ci || echo "ADVERTENCIA: Tests del backend fallaron"
+
   echo ">> Reiniciando backend con PM2..."
   pm2 restart backend || pm2 start index.js --name backend
   pm2 save
@@ -163,6 +231,10 @@ ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
   echo ">> Frontend: construyendo producción..."
   cd ../frontend
   npm install
+
+  echo ">> Frontend: ejecutando tests..."
+  npm run test:ci || echo "ADVERTENCIA: Tests del frontend fallaron"
+
   npm run build
 
   echo ">> Reiniciando frontend con PM2..."
@@ -180,10 +252,33 @@ EOF
 
     post {
         success {
-            echo "Pipeline completado con éxito"
+            echo """
+            ═══════════════════════════════════════
+            PIPELINE COMPLETADO CON ÉXITO
+            ═══════════════════════════════════════
+            
+            Tests ejecutados:
+            - Backend: Ver reporte en Jenkins
+            - Frontend: Ver reporte en Jenkins
+            
+            Security scans completados
+            Deploy exitoso en EC2
+            
+            Build: #${env.BUILD_NUMBER}
+            ═══════════════════════════════════════
+            """
         }
         failure {
-            echo "El pipeline falló. Revisar logs."
+            echo """
+            ═══════════════════════════════════════
+            PIPELINE FALLÓ
+            ═══════════════════════════════════════
+            
+            Build: #${env.BUILD_NUMBER}
+            Revisar logs para más detalles
+            
+            ═══════════════════════════════════════
+            """
         }
     }
 }

@@ -20,6 +20,15 @@ function getBackendVersion() {
     return "1";
   }
 }
+// Health check endpoint para CI/CD
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
 app.use(cors());
 app.use(express.json());
