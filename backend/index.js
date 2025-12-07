@@ -2,11 +2,13 @@
 import express from "express";
 import cors from "cors";
 import fs from "fs";
-import { connectDB, User } from "./db/mongo.js";
+
+
 
 
 // Rutas de autenticación (login / register)
 import authRoutes from "./routes/authRoutes.js";
+const { testConnection } = require('./db/dbMySql.js');
 
 const app = express();
 const PORT = 4000;
@@ -35,6 +37,10 @@ let tasks = [
   { id: 1, title: "Taea 2 " },
   { id: 2, title: "Tarea de ejemplo " },
 ];
+app.listen(PORT, async () => {
+  console.log(`Backend en puerto ${PORT}`);
+  await testConnection();
+});
 
 // Ruta raíz simple
 app.get("/", (req, res) => {
@@ -44,6 +50,14 @@ app.get("/", (req, res) => {
 // Ruta de prueba básica
 app.get("/api/hello", (req, res) => {
   res.json({ message: "Hola desde el backend" });
+});
+app.get('/api/test-mysql', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT NOW() AS now');
+    return res.json({ ok: true, now: rows[0].now });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 // Ruta de tareas de ejemplo
@@ -60,25 +74,7 @@ app.get("/api/version", (req, res) => {
   });
 });
 
-app.get("/api/test-mongo", async (req, res) => {
-  try {
-    await connectDB();
 
-    const count = await User.countDocuments();
-
-    res.json({
-      ok: true,
-      message: "Conexión a MongoDB exitosa (Mongoose)",
-      totalUsers: count,
-    });
-  } catch (error) {
-    console.error("Error en /api/test-mongo:", error);
-    res.status(500).json({
-      ok: false,
-      message: "Error conectando a MongoDB con Mongoose",
-    });
-  }
-});
 
 
 // Iniciar servidor
