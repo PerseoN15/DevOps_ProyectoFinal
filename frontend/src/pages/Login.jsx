@@ -153,7 +153,7 @@ function Login() {
         <header className="welcome-header">
           <div className="logo-container">
             <div className="logo-circle"></div>
-            <h1 className="main-title">Sistema de Tutorías</h1>
+            <h1 className="main-title">Sistema de Tutorías ITSJ</h1>
           </div>
           <p className="subtitle">
             Una experiencia educativa moderna y accesible para todos
@@ -162,7 +162,7 @@ function Login() {
 
         <div className="welcome-card">
           <h2 className="welcome-message">
-            ¡Bienvenido a la plataforma!
+            Bienvenido al Sistema de Tutorías ITSJ
           </h2>
           <p className="welcome-description">
             Accede con tu cuenta o regístrate para comenzar a utilizar todas las funcionalidades del sistema educativo.
@@ -355,71 +355,6 @@ function Login() {
                 </div>
               </div>
 
-              {/* Selector de rol para registro */}
-              <div className="form-group">
-                <label className="section-label">
-                  <span className="label-icon">👥</span>
-                  Selecciona tu rol
-                </label>
-                <div className="role-selector">
-                  <div className="radio-group">
-                    <label className={`radio-option ${registerRole === 'administrador' ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="register-role"
-                        value="administrador"
-                        checked={registerRole === 'administrador'}
-                        onChange={(e) => setRegisterRole(e.target.value)}
-                        className="radio-input"
-                      />
-                      <span className="radio-label">
-                        <span className="role-icon">👨‍💼</span>
-                        <span className="role-text">
-                          <span className="role-title">Administrador</span>
-                          <span className="role-desc">Acceso completo</span>
-                        </span>
-                      </span>
-                    </label>
-
-                    <label className={`radio-option ${registerRole === 'tutor' ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="register-role"
-                        value="tutor"
-                        checked={registerRole === 'tutor'}
-                        onChange={(e) => setRegisterRole(e.target.value)}
-                        className="radio-input"
-                      />
-                      <span className="radio-label">
-                        <span className="role-icon">👩‍🏫</span>
-                        <span className="role-text">
-                          <span className="role-title">Tutor</span>
-                          <span className="role-desc">Gestión de alumnos</span>
-                        </span>
-                      </span>
-                    </label>
-
-                    <label className={`radio-option ${registerRole === 'alumno' ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="register-role"
-                        value="alumno"
-                        checked={registerRole === 'alumno'}
-                        onChange={(e) => setRegisterRole(e.target.value)}
-                        className="radio-input"
-                      />
-                      <span className="radio-label">
-                        <span className="role-icon">👨‍🎓</span>
-                        <span className="role-text">
-                          <span className="role-title">Alumno</span>
-                          <span className="role-desc">Acceso estudiante</span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
               <div className="form-group">
                 <div className="input-container">
                   <input
@@ -453,6 +388,71 @@ function Login() {
                     Confirmar Contraseña
                   </label>
                   <div className="input-underline"></div>
+                </div>
+              </div>
+
+              {/* Selector de rol para registro - MOVIDO AL FINAL */}
+              <div className="form-group">
+                <label className="section-label">
+                  <span className="label-icon">👥</span>
+                  Selecciona tu rol
+                </label>
+                <div className="role-selector">
+                  <div className="radio-group">
+                    <label className={`radio-option radio-admin ${registerRole === 'administrador' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="register-role"
+                        value="administrador"
+                        checked={registerRole === 'administrador'}
+                        onChange={(e) => setRegisterRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👨‍💼</span>
+                        <span className="role-text">
+                          <span className="role-title">Administrador</span>
+                          <span className="role-desc">Acceso completo</span>
+                        </span>
+                      </span>
+                    </label>
+
+                    <label className={`radio-option radio-tutor ${registerRole === 'tutor' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="register-role"
+                        value="tutor"
+                        checked={registerRole === 'tutor'}
+                        onChange={(e) => setRegisterRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👩‍🏫</span>
+                        <span className="role-text">
+                          <span className="role-title">Tutor</span>
+                          <span className="role-desc">Gestión de alumnos</span>
+                        </span>
+                      </span>
+                    </label>
+
+                    <label className={`radio-option radio-alumno ${registerRole === 'alumno' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="register-role"
+                        value="alumno"
+                        checked={registerRole === 'alumno'}
+                        onChange={(e) => setRegisterRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👨‍🎓</span>
+                        <span className="role-text">
+                          <span className="role-title">Alumno</span>
+                          <span className="role-desc">Acceso estudiante</span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
