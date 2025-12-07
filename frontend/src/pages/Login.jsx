@@ -8,7 +8,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [loginRole, setLoginRole] = useState("");
   const [registerRole, setRegisterRole] = useState("alumno");
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
@@ -107,7 +106,6 @@ function Login() {
           setConfirmPassword("");
           setEmail("");
           setRegisterRole("alumno");
-          setLoginRole("");
         }, 2000);
       } else {
         setMensaje(data.message || "Error en el registro");
@@ -127,7 +125,6 @@ function Login() {
     setPassword("");
     setConfirmPassword("");
     setEmail("");
-    setLoginRole("");
     setRegisterRole("alumno");
     setCargando(false);
   };
