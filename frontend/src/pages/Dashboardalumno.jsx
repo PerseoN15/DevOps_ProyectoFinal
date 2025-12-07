@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Dashboard.css";
 
-function Dashboard({ user, onLogout }) {
+function DashboardAlumno({ user, onLogout }) {
   const [currentSection, setCurrentSection] = useState("inicio");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
@@ -407,7 +407,7 @@ function Dashboard({ user, onLogout }) {
   );
 }
 
-Dashboard.propTypes = {
+DashboardAlumno.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number,
     username: PropTypes.string,
@@ -419,4 +419,4 @@ Dashboard.propTypes = {
   onLogout: PropTypes.func.isRequired,
 };
 
-export default Dashboard;
+export default DashboardAlumno;
