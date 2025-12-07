@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Login from "./pages/Login";
-import DashboardAdmin from "./pages/DashboardAdmin";
-import DashboardTutor from "./pages/DashboardTutor";
-import DashboardAlumno from "./pages/DashboardAlumno";
+import Login from "./pages/Login.jsx";
+import DashboardAdmin from "./pages/DashboardAdmin.jsx";
+import DashboardTutor from "./pages/DashboardTutor.jsx";
+import DashboardAlumno from "./pages/DashboardAlumno.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
