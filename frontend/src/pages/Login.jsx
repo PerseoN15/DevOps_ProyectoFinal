@@ -8,8 +8,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [loginRole, setLoginRole] = useState(""); // Nuevo estado para rol en login
-  const [registerRole, setRegisterRole] = useState("alumno"); // Nuevo estado para rol en registro
+  const [loginRole, setLoginRole] = useState("");
+  const [registerRole, setRegisterRole] = useState("alumno");
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
 
@@ -35,7 +35,7 @@ function Login() {
       const resp = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, role: loginRole }), // Agregar rol al login
+        body: JSON.stringify({ username, password, role: loginRole }),
       });
 
       const data = await resp.json();
@@ -91,7 +91,7 @@ function Login() {
           username, 
           password, 
           email,
-          role: registerRole // Agregar rol al registro
+          role: registerRole
         }),
       });
 
@@ -132,9 +132,14 @@ function Login() {
     setCargando(false);
   };
 
+  const switchModal = (modal) => {
+    setMensaje("");
+    setActiveModal(modal);
+  };
+
   return (
     <div className="welcome-container">
-      {/* Fondo animado con partículas */}
+      {/* Fondo animado */}
       <div className="animated-background">
         <div className="particle"></div>
         <div className="particle"></div>
@@ -146,23 +151,25 @@ function Login() {
         <div className="particle"></div>
       </div>
 
-      {/* Elementos decorativos circulares */}
-      <div className="decorative-element"></div>
-      <div className="decorative-element"></div>
-      <div className="decorative-element"></div>
-      <div className="decorative-element"></div>
-
       {/* Contenido principal */}
       <div className="welcome-content">
         <header className="welcome-header">
-          <h1 className="main-title">Sistema de Tutorías</h1>
-          <p className="subtitle">Plataforma educativa integral para estudiantes y tutores</p>
+          <div className="logo-container">
+            <div className="logo-circle"></div>
+            <h1 className="main-title">Sistema de Tutorías</h1>
+          </div>
+          <p className="subtitle">
+            Una experiencia educativa moderna y accesible para todos
+          </p>
         </header>
 
         <div className="welcome-card">
-          <h2 className="welcome-message">¡Bienvendo!</h2>
+          <div className="card-icon">👋</div>
+          <h2 className="welcome-message">
+            ¡Bienvenido a la plataforma!
+          </h2>
           <p className="welcome-description">
-            Accede a tu cuenta o regístrate para comenzar a utilizar todas las funcionalidades del sistema.
+            Accede con tu cuenta o regístrate para comenzar a utilizar todas las funcionalidades del sistema educativo.
           </p>
 
           <div className="button-container">
@@ -170,19 +177,27 @@ function Login() {
               className="welcome-button login-btn"
               onClick={() => setActiveModal('login')}
             >
+              <span className="button-icon">🔑</span>
               Iniciar Sesión
             </button>
             <button 
               className="welcome-button register-btn"
               onClick={() => setActiveModal('register')}
             >
+              <span className="button-icon">✨</span>
               Registrarse
             </button>
           </div>
         </div>
 
         <footer className="welcome-footer">
-          <p>¿Necesitas ayuda? <a href="#contact">Contáctanos</a></p>
+          <div className="footer-content">
+            <p>¿Necesitas ayuda?</p>
+            <a href="#contact" className="footer-link">
+              <span className="link-icon">💬</span>
+              Contáctanos
+            </a>
+          </div>
         </footer>
       </div>
 
@@ -190,13 +205,16 @@ function Login() {
       {activeModal === 'login' && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-button" onClick={closeModal}>
-              ×
-            </button>
-
-            <div className="modal-header">
-              <h2>Iniciar Sesión</h2>
-              <p>Ingresa tus credenciales para acceder al sistema</p>
+            <div className="modal-header-section">
+              <div className="modal-icon">🔐</div>
+              <button className="close-button" onClick={closeModal} aria-label="Cerrar">
+                <span className="close-icon">×</span>
+              </button>
+              
+              <div className="modal-header">
+                <h2>Iniciar Sesión</h2>
+                <p>Ingresa tus credenciales para acceder</p>
+              </div>
             </div>
 
             <form onSubmit={handleLoginSubmit} className="modal-form">
@@ -210,7 +228,10 @@ function Login() {
                     className="form-input"
                     placeholder=" "
                   />
-                  <label htmlFor="login-username" className="form-label">Usuario</label>
+                  <label htmlFor="login-username" className="form-label">
+                    <span className="label-icon">👤</span>
+                    Usuario
+                  </label>
                   <div className="input-underline"></div>
                 </div>
               </div>
@@ -225,34 +246,83 @@ function Login() {
                     className="form-input"
                     placeholder=" "
                   />
-                  <label htmlFor="login-password" className="form-label">Contraseña</label>
+                  <label htmlFor="login-password" className="form-label">
+                    <span className="label-icon">🔒</span>
+                    Contraseña
+                  </label>
                   <div className="input-underline"></div>
                 </div>
               </div>
 
-              {/* 🔹 Selector de rol para login */}
+              {/* Selector de rol para login */}
               <div className="form-group">
-                <div className="input-container">
-                  <select
-                    id="login-role"
-                    value={loginRole}
-                    onChange={(e) => setLoginRole(e.target.value)}
-                    className="form-input"
-                  >
-                    <option value="">Selecciona tu rol</option>
-                    <option value="administrador">Administrador</option>
-                    <option value="tutor">Tutor</option>
-                    <option value="alumno">Alumno</option>
-                  </select>
-                  <label htmlFor="login-role" className="form-label">Rol</label>
-                  <div className="input-underline"></div>
+                <label className="section-label">
+                  <span className="label-icon">👥</span>
+                  Selecciona tu rol
+                </label>
+                <div className="role-selector">
+                  <div className="radio-group">
+                    <label className={`radio-option ${loginRole === 'administrador' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="login-role"
+                        value="administrador"
+                        checked={loginRole === 'administrador'}
+                        onChange={(e) => setLoginRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👨‍💼</span>
+                        <span className="role-text">
+                          <span className="role-title">Administrador</span>
+                          <span className="role-desc">Acceso completo</span>
+                        </span>
+                      </span>
+                    </label>
+
+                    <label className={`radio-option ${loginRole === 'tutor' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="login-role"
+                        value="tutor"
+                        checked={loginRole === 'tutor'}
+                        onChange={(e) => setLoginRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👩‍🏫</span>
+                        <span className="role-text">
+                          <span className="role-title">Tutor</span>
+                          <span className="role-desc">Gestión de alumnos</span>
+                        </span>
+                      </span>
+                    </label>
+
+                    <label className={`radio-option ${loginRole === 'alumno' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="login-role"
+                        value="alumno"
+                        checked={loginRole === 'alumno'}
+                        onChange={(e) => setLoginRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👨‍🎓</span>
+                        <span className="role-text">
+                          <span className="role-title">Alumno</span>
+                          <span className="role-desc">Acceso estudiante</span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
               <div className="form-options">
                 <label className="remember-me">
                   <input type="checkbox" />
-                  <span>Recordar sesión</span>
+                  Recordarme
                 </label>
                 <a href="#forgot" className="forgot-password">
                   ¿Olvidaste tu contraseña?
@@ -265,30 +335,36 @@ function Login() {
                 className={`submit-button ${cargando ? 'loading' : ''}`}
               >
                 <span className="button-text">
-                  {cargando ? "Verificando..." : "Iniciar Sesión"}
+                  {cargando ? "Iniciando sesión..." : "Iniciar Sesión"}
                 </span>
-                <div className="button-loader"></div>
+                <div className="button-loader">
+                  <div className="spinner"></div>
+                </div>
+                <div className="button-glow"></div>
               </button>
             </form>
 
             {mensaje && (
               <div className={`message ${mensaje.includes("correctamente") ? 'success' : 'error'}`}>
-                {mensaje}
+                <div className="message-icon">
+                  {mensaje.includes("correctamente") ? "✓" : "!"}
+                </div>
+                <div className="message-text">{mensaje}</div>
               </div>
             )}
 
             <div className="modal-footer">
               <p>
                 ¿No tienes cuenta?{" "}
-                <a
-                  href="#register"
+                <button
+                  className="link-button"
                   onClick={(e) => {
                     e.preventDefault();
-                    setActiveModal("register");
+                    switchModal("register");
                   }}
                 >
                   Regístrate aquí
-                </a>
+                </button>
               </p>
             </div>
           </div>
@@ -299,13 +375,16 @@ function Login() {
       {activeModal === 'register' && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-button" onClick={closeModal}>
-              ×
-            </button>
-
-            <div className="modal-header">
-              <h2>Crear Cuenta</h2>
-              <p>Regístrate para comenzar a usar el sistema</p>
+            <div className="modal-header-section">
+              <div className="modal-icon">✨</div>
+              <button className="close-button" onClick={closeModal} aria-label="Cerrar">
+                <span className="close-icon">×</span>
+              </button>
+              
+              <div className="modal-header">
+                <h2>Crear Cuenta</h2>
+                <p>Regístrate para comenzar a usar el sistema</p>
+              </div>
             </div>
 
             <form onSubmit={handleRegisterSubmit} className="modal-form">
@@ -319,7 +398,10 @@ function Login() {
                     className="form-input"
                     placeholder=" "
                   />
-                  <label htmlFor="register-username" className="form-label">Usuario</label>
+                  <label htmlFor="register-username" className="form-label">
+                    <span className="label-icon">👤</span>
+                    Usuario
+                  </label>
                   <div className="input-underline"></div>
                 </div>
               </div>
@@ -334,26 +416,76 @@ function Login() {
                     className="form-input"
                     placeholder=" "
                   />
-                  <label htmlFor="register-email" className="form-label">Email</label>
+                  <label htmlFor="register-email" className="form-label">
+                    <span className="label-icon">📧</span>
+                    Email
+                  </label>
                   <div className="input-underline"></div>
                 </div>
               </div>
 
-              {/* 🔹 Selector de rol para registro */}
+              {/* Selector de rol para registro */}
               <div className="form-group">
-                <div className="input-container">
-                  <select
-                    id="register-role"
-                    value={registerRole}
-                    onChange={(e) => setRegisterRole(e.target.value)}
-                    className="form-input"
-                  >
-                    <option value="administrador">Administrador</option>
-                    <option value="tutor">Tutor</option>
-                    <option value="alumno">Alumno</option>
-                  </select>
-                  <label htmlFor="register-role" className="form-label">Rol</label>
-                  <div className="input-underline"></div>
+                <label className="section-label">
+                  <span className="label-icon">👥</span>
+                  Selecciona tu rol
+                </label>
+                <div className="role-selector">
+                  <div className="radio-group">
+                    <label className={`radio-option ${registerRole === 'administrador' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="register-role"
+                        value="administrador"
+                        checked={registerRole === 'administrador'}
+                        onChange={(e) => setRegisterRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👨‍💼</span>
+                        <span className="role-text">
+                          <span className="role-title">Administrador</span>
+                          <span className="role-desc">Acceso completo</span>
+                        </span>
+                      </span>
+                    </label>
+
+                    <label className={`radio-option ${registerRole === 'tutor' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="register-role"
+                        value="tutor"
+                        checked={registerRole === 'tutor'}
+                        onChange={(e) => setRegisterRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👩‍🏫</span>
+                        <span className="role-text">
+                          <span className="role-title">Tutor</span>
+                          <span className="role-desc">Gestión de alumnos</span>
+                        </span>
+                      </span>
+                    </label>
+
+                    <label className={`radio-option ${registerRole === 'alumno' ? 'selected' : ''}`}>
+                      <input
+                        type="radio"
+                        name="register-role"
+                        value="alumno"
+                        checked={registerRole === 'alumno'}
+                        onChange={(e) => setRegisterRole(e.target.value)}
+                        className="radio-input"
+                      />
+                      <span className="radio-label">
+                        <span className="role-icon">👨‍🎓</span>
+                        <span className="role-text">
+                          <span className="role-title">Alumno</span>
+                          <span className="role-desc">Acceso estudiante</span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
@@ -367,7 +499,10 @@ function Login() {
                     className="form-input"
                     placeholder=" "
                   />
-                  <label htmlFor="register-password" className="form-label">Contraseña</label>
+                  <label htmlFor="register-password" className="form-label">
+                    <span className="label-icon">🔒</span>
+                    Contraseña
+                  </label>
                   <div className="input-underline"></div>
                 </div>
               </div>
@@ -382,7 +517,10 @@ function Login() {
                     className="form-input"
                     placeholder=" "
                   />
-                  <label htmlFor="register-confirm-password" className="form-label">Confirmar Contraseña</label>
+                  <label htmlFor="register-confirm-password" className="form-label">
+                    <span className="label-icon">✓</span>
+                    Confirmar Contraseña
+                  </label>
                   <div className="input-underline"></div>
                 </div>
               </div>
@@ -395,28 +533,34 @@ function Login() {
                 <span className="button-text">
                   {cargando ? "Registrando..." : "Crear Cuenta"}
                 </span>
-                <div className="button-loader"></div>
+                <div className="button-loader">
+                  <div className="spinner"></div>
+                </div>
+                <div className="button-glow"></div>
               </button>
             </form>
 
             {mensaje && (
               <div className={`message ${mensaje.includes("exitoso") ? 'success' : 'error'}`}>
-                {mensaje}
+                <div className="message-icon">
+                  {mensaje.includes("exitoso") ? "✓" : "!"}
+                </div>
+                <div className="message-text">{mensaje}</div>
               </div>
             )}
 
             <div className="modal-footer">
               <p>
                 ¿Ya tienes cuenta?{" "}
-                <a
-                  href="#login"
+                <button
+                  className="link-button"
                   onClick={(e) => {
                     e.preventDefault();
-                    setActiveModal("login");
+                    switchModal("login");
                   }}
                 >
                   Inicia sesión aquí
-                </a>
+                </button>
               </p>
             </div>
           </div>
