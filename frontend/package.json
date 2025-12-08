@@ -9,8 +9,9 @@
     "lint": "eslint src --ext .js,.jsx",
     "preview": "vite preview",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "test:ci": "jest --ci --coverage --maxWorkers=2"
+    "test:watch": "jest --watch", 
+    "test:ci": "jest --ci --maxWorkers=2 --watchAll=false"
+
   },
   "dependencies": {
     "axios": "^1.13.2",
