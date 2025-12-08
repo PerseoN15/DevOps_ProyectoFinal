@@ -1,7 +1,10 @@
+// backend/routes/googleAuthRoutes.js
 const express = require("express");
-const router = express.Router();
-const controller = require("../controllers/googleAuthController");
+const { loginWithGoogle } = require("../controllers/authGoogleController");
 
-router.get("/google/callback", controller.googleCallback);
+const router = express.Router();
+
+// El frontend manda POST /api/auth/google con { credential }
+router.post("/google", loginWithGoogle);
 
 module.exports = router;
