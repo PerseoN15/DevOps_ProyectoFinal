@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import API_URL from "../config/api";
-import GoogleLoginButton from "../components/GoogleLoginButton";
 import "./Login.css";
 
 function Login({ onLoginSuccess }) {
@@ -15,23 +14,108 @@ function Login({ onLoginSuccess }) {
   const [registerRole, setRegisterRole] = useState("alumno");
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
+  
+  // Referencia para el botón de Google
+  const googleButtonRef = useRef(null);
 
-  const handleGoogleSuccess = (data) => {
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
-    
-    if (onLoginSuccess) {
-      onLoginSuccess(data);
-    }
-    
-    if (data.user.rol === "Administrador") {
-      window.location.href = "/dashboard-admin";
-    } else if (data.user.rol === "Tutor") {
-      window.location.href = "/dashboard-tutor";
-    } else {
-      window.location.href = "/dashboard-alumno";
-    }
+  // Función para manejar la respuesta de Google
+  const handleCredentialResponse = (response) => {
+    console.log("🔐 Credential de Google:", response);
+
+    fetch(`${API_URL}/api/auth/google`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ credential: response.credential }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const errText = await res.text();
+          console.error("Error backend Google:", errText);
+          setMensaje("Error al autenticar con Google");
+          return;
+        }
+
+        const data = await res.json();
+        console.log("✅ Usuario desde backend:", data);
+
+        const rawUser = data.user || data;
+        const token = data.token || data.accessToken;
+
+        // ⬇️ AQUÍ forzamos que sea admin, como espera App.jsx
+        const user = {
+          ...rawUser,
+          role: "administrador",   // 👈 clave CORRECTA y en minúsculas
+        };
+
+        console.log("🧩 Usuario final que se guarda:", user);
+
+        // Guardamos en localStorage como App lo espera
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        setMensaje("Inicio de sesión con Google exitoso");
+
+        setTimeout(() => {
+          setActiveModal(null);
+          setMensaje("");
+
+          if (onLoginSuccess) {
+            // 👈 App.jsx espera el usuario DIRECTO
+            onLoginSuccess(user);
+          }
+
+          // ❌ NO uses window.location.href aquí, App decide el dashboard
+          // window.location.href = "/dashboard-admin";
+        }, 1500);
+      })
+      .catch((err) => {
+        console.error("Error de red al autenticar con Google:", err);
+        setMensaje("No se pudo conectar al backend de Google login");
+      });
   };
+
+  // Función para inicializar Google
+  function initializeGoogle() {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+    if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+      console.error("Google Identity Services no está disponible todavía");
+      return;
+    }
+
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleCredentialResponse,
+    });
+
+    window.google.accounts.id.renderButton(googleButtonRef.current, {
+      theme: "outline",
+      size: "large",
+      shape: "pill",
+      text: "continue_with",
+      // width: 300,          // opcional, y solo si quieres, pero como número
+    });
+  }
+
+  // Efecto para inicializar Google Sign-In
+  useEffect(() => {
+    if (activeModal !== 'login') return;
+
+    // Cargar el script de Google si no está cargado
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        setTimeout(initializeGoogle, 500);
+      };
+      document.head.appendChild(script);
+    } else {
+      const timeout = setTimeout(initializeGoogle, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [activeModal]);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +142,7 @@ function Login({ onLoginSuccess }) {
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await resp.json();
+      const data = await res.json();
 
       if (resp.ok && data.ok) {
         setMensaje(data.message || "Inicio de sesion correctamente");
@@ -298,8 +382,9 @@ function Login({ onLoginSuccess }) {
               <span>o continua con</span>
             </div>
 
+            {/* Botón de Google integrado directamente */}
             <div className="google-login-container">
-              <GoogleLoginButton onSuccess={handleGoogleSuccess} />
+              <div ref={googleButtonRef}></div>
             </div>
 
             {mensaje && (

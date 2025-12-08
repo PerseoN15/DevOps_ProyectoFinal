@@ -3,6 +3,7 @@ import Login from "./pages/Login.jsx";
 import DashboardAdmin from "./pages/DashboardAdmin.jsx";
 import DashboardTutor from "./pages/DashboardTutor.jsx";
 import DashboardAlumno from "./pages/DashboardAlumno.jsx";
+import GoogleTest from "./GoogleTest";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -49,5 +50,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
