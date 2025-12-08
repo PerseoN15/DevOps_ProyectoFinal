@@ -20,7 +20,7 @@ function Login({ onLoginSuccess }) {
 
   // Función para manejar la respuesta de Google
   const handleCredentialResponse = (response) => {
-    console.log("🔐 Credential de Google:", response);
+    console.log(" Credential de Google:", response);
 
     fetch(`${API_URL}/api/auth/google`, {
       method: "POST",
@@ -36,18 +36,17 @@ function Login({ onLoginSuccess }) {
         }
 
         const data = await res.json();
-        console.log("✅ Usuario desde backend:", data);
+        console.log(" Usuario desde backend:", data);
 
         const rawUser = data.user || data;
         const token = data.token || data.accessToken;
 
-        // ⬇️ AQUÍ forzamos que sea admin, como espera App.jsx
         const user = {
           ...rawUser,
-          role: "administrador",   // 👈 clave CORRECTA y en minúsculas
+          role: "administrador",   
         };
 
-        console.log("🧩 Usuario final que se guarda:", user);
+        console.log(" Usuario final que se guarda:", user);
 
         // Guardamos en localStorage como App lo espera
         localStorage.setItem("token", token);
@@ -60,11 +59,11 @@ function Login({ onLoginSuccess }) {
           setMensaje("");
 
           if (onLoginSuccess) {
-            // 👈 App.jsx espera el usuario DIRECTO
+            //  App.jsx espera el usuario DIRECTO
             onLoginSuccess(user);
           }
 
-          // ❌ NO uses window.location.href aquí, App decide el dashboard
+          //  NO uses window.location.href aquí, App decide el dashboard
           // window.location.href = "/dashboard-admin";
         }, 1500);
       })

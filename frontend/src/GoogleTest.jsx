@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
 function GoogleTest() {
   const buttonRef = useRef(null);
