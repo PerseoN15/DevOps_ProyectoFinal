@@ -25,16 +25,18 @@ pipeline {
                         }
                     }
                 }
-                stage('Dependencias Backend') {
-                    steps {
-                        dir("${BACKEND_DIR}") {
-                            echo "Instalando dependencias del backend..."
-                            sh "npm install"
-                        }
-                    }
-                }
-            }
+        stage('Dependencias Backend') {
+            steps {
+            dir("${BACKEND_DIR}") {
+                echo "Instalando dependencias del backend..."
+                sh "npm install"
+
+                echo "Reconstruyendo bcrypt para entorno Linux (si aplica)..."
+                sh "npm rebuild bcrypt --build-from-source || true"
         }
+    }
+}
+
 
         stage('Tests') {
             parallel {
