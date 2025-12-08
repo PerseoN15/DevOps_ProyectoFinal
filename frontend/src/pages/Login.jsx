@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import API_URL from "../config/api";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import "./Login.css";
 
 function Login({ onLoginSuccess }) {
-  const navigate = useNavigate();
   const [activeModal, setActiveModal] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,11 +25,11 @@ function Login({ onLoginSuccess }) {
     }
     
     if (data.user.rol === "Administrador") {
-      navigate("/dashboard-admin");
+      window.location.href = "/dashboard-admin";
     } else if (data.user.rol === "Tutor") {
-      navigate("/dashboard-tutor");
+      window.location.href = "/dashboard-tutor";
     } else {
-      navigate("/dashboard-alumno");
+      window.location.href = "/dashboard-alumno";
     }
   };
 
