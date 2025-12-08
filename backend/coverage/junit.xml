@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="0.497">
+  <testsuite name="AuthMiddleware - Pruebas Unitarias" errors="0" failures="0" skipped="0" timestamp="2025-12-08T04:48:28" time="0.315" tests="10">
+    <testcase classname="AuthMiddleware - Pruebas Unitarias verifyToken debe autenticar con token válido en header" name="AuthMiddleware - Pruebas Unitarias verifyToken debe autenticar con token válido en header" time="0.005">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias verifyToken debe autenticar con token válido en cookie" name="AuthMiddleware - Pruebas Unitarias verifyToken debe autenticar con token válido en cookie" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias verifyToken debe rechazar request sin token" name="AuthMiddleware - Pruebas Unitarias verifyToken debe rechazar request sin token" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias verifyToken debe rechazar token inválido" name="AuthMiddleware - Pruebas Unitarias verifyToken debe rechazar token inválido" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias verifyToken debe rechazar token expirado" name="AuthMiddleware - Pruebas Unitarias verifyToken debe rechazar token expirado" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias checkRole debe permitir acceso a usuario con rol correcto" name="AuthMiddleware - Pruebas Unitarias checkRole debe permitir acceso a usuario con rol correcto" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias checkRole debe rechazar acceso a usuario sin rol requerido" name="AuthMiddleware - Pruebas Unitarias checkRole debe rechazar acceso a usuario sin rol requerido" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias checkRole debe rechazar si no hay usuario en request" name="AuthMiddleware - Pruebas Unitarias checkRole debe rechazar si no hay usuario en request" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias isAuthenticated debe permitir acceso a usuario autenticado" name="AuthMiddleware - Pruebas Unitarias isAuthenticated debe permitir acceso a usuario autenticado" time="0.001">
+    </testcase>
+    <testcase classname="AuthMiddleware - Pruebas Unitarias isAuthenticated debe rechazar acceso a usuario no autenticado" name="AuthMiddleware - Pruebas Unitarias isAuthenticated debe rechazar acceso a usuario no autenticado" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>
