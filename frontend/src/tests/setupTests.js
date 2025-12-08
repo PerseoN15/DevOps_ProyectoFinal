@@ -1,3 +1,4 @@
+/* eslint-env jest, node */
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 

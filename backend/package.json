@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "Sistema de tutorias ITSJ - Backend",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "test:unit": "jest tests/unit --coverage",
-    "test:integration": "jest tests/integration --coverage",
-    "test:ci": "jest --ci --coverage --maxWorkers=2"
-  },
+"scripts": {
+  "start": "node index.js",
+  "dev": "nodemon index.js",
+  "test": "node ./node_modules/jest/bin/jest.js --coverage",
+  "test:watch": "node ./node_modules/jest/bin/jest.js --watch",
+  "test:unit": "node ./node_modules/jest/bin/jest.js tests/unit --coverage",
+  "test:integration": "node ./node_modules/jest/bin/jest.js tests/integration --coverage",
+  "test:ci": "node ./node_modules/jest/bin/jest.js --ci --coverage --maxWorkers=2"
+}
+,
   "keywords": [
     "tutorias",
     "education"
