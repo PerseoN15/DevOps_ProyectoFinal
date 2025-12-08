@@ -1,24 +1,30 @@
-import { useEffect, useRef } from "react";
+// frontend/src/components/GoogleLoginButton.jsx
+import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
+import API_URL from "../config/api";
+import GOOGLE_CLIENT_ID from "../config/google";
 
 const GoogleLoginButton = ({ onSuccess }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
-    if (!clientId) {
-      console.error("Falta VITE_GOOGLE_CLIENT_ID en el .env");
+    if (!GOOGLE_CLIENT_ID) {
+      console.error("Falta GOOGLE_CLIENT_ID en src/config/google.js");
       return;
     }
 
-    if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+    if (
+      !window.google ||
+      !window.google.accounts ||
+      !window.google.accounts.id
+    ) {
       console.error("Google Identity Services no está disponible");
       return;
     }
 
     window.google.accounts.id.initialize({
-      client_id: clientId,
+      client_id: GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse,
     });
 
@@ -32,9 +38,7 @@ const GoogleLoginButton = ({ onSuccess }) => {
 
   const handleCredentialResponse = async (response) => {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:4000";
-
-      const res = await axios.post(`${apiUrl}/api/auth/google`, {
+      const res = await axios.post(`${API_URL}/api/auth/google`, {
         credential: response.credential,
       });
 
@@ -48,6 +52,10 @@ const GoogleLoginButton = ({ onSuccess }) => {
   };
 
   return <div ref={buttonRef}></div>;
+};
+
+GoogleLoginButton.propTypes = {
+  onSuccess: PropTypes.func,
 };
 
 export default GoogleLoginButton;

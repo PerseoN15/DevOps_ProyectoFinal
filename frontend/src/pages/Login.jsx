@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import API_URL from "../config/api";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import "./Login.css";
 
 function Login({ onLoginSuccess }) {
+  const navigate = useNavigate();
   const [activeModal, setActiveModal] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,14 +21,18 @@ function Login({ onLoginSuccess }) {
   const handleGoogleSuccess = (data) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
-    setMensaje("Inicio de sesion con Google exitoso");
-    setTimeout(() => {
-      setActiveModal(null);
-      setMensaje("");
-      if (onLoginSuccess) {
-        onLoginSuccess(data.user);
-      }
-    }, 1500);
+    
+    if (onLoginSuccess) {
+      onLoginSuccess(data);
+    }
+    
+    if (data.user.rol === "Administrador") {
+      navigate("/dashboard-admin");
+    } else if (data.user.rol === "Tutor") {
+      navigate("/dashboard-tutor");
+    } else {
+      navigate("/dashboard-alumno");
+    }
   };
 
   const handleLoginSubmit = async (e) => {
@@ -290,10 +296,8 @@ function Login({ onLoginSuccess }) {
               </button>
             </form>
 
-            <div className="google-login-separator">
-              <span className="separator-line"></span>
-              <span className="separator-text">o continua con</span>
-              <span className="separator-line"></span>
+            <div className="login-separator">
+              <span>o continua con</span>
             </div>
 
             <div className="google-login-container">

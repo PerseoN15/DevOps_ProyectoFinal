@@ -1192,3 +1192,29 @@ body {
 .form-group:nth-child(3) { animation-delay: 0.3s; }
 .form-group:nth-child(4) { animation-delay: 0.4s; }
 .form-group:nth-child(5) { animation-delay: 0.5s; }
+
+.login-separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.login-separator span {
+  padding: 0 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.login-separator::before,
+.login-separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.google-login-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
