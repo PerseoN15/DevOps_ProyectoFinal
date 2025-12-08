@@ -126,7 +126,7 @@ pipeline {
 
         stage('Security - SAST (Semgrep)') {
             steps {
-                echo "Ejecutando análisis SAST con Semgrep..."
+                echo "Ejecutando analisis SAST con Semgrep..."
                 sh """
                     pip3 install --user semgrep --break-system-packages --ignore-installed || true
                     python3 -m semgrep --config auto frontend/src backend > semgrep-report.txt || true
@@ -159,7 +159,7 @@ pipeline {
                 sh """
                     echo "Verificando que no exista archivo .env en el repositorio..."
                     if [ -f ".env" ]; then
-                        echo "ADVERTENCIA: Se encontró un archivo .env. No debe subirse al repositorio."
+                        echo "ADVERTENCIA: Se encontro un archivo .env. No debe subirse al repositorio."
                     else
                         echo "OK: No hay archivo .env expuesto."
                     fi
@@ -170,7 +170,7 @@ pipeline {
             }
         }
 
-        stage('Actualizar versión del backend') {
+        stage('Actualizar version del backend') {
             steps {
                 echo "Actualizando archivo backend_version.txt en EC2..."
                 sshagent(credentials: ['ec2-jenkins-key']) {
@@ -189,7 +189,7 @@ ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
 
   echo "$NEXT_VERSION" > "$VERSION_FILE"
 
-  echo ">> Versión de backend actualizada a: $NEXT_VERSION"
+  echo ">> Version de backend actualizada a: $NEXT_VERSION"
 EOF
                     '''
                 }
@@ -198,56 +198,51 @@ EOF
 
         stage('Deploy to EC2') {
             steps {
-                echo "Realizando deploy automático en EC2..."
+                echo "Realizando deploy automatico en EC2..."
 
                 sshagent(credentials: ['ec2-jenkins-key']) {
                     sh '''
-ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
+ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 2>/dev/null << 'EOF'
   set -e
 
-  echo ">> Entrando a la instancia EC2..."
-  cd DevOps_ProyectoFinal
+  echo "=== Entrando al proyecto ==="
+  cd ~/DevOps_ProyectoFinal 2>/dev/null || exit 1
 
-  echo ">> Corrigiendo permisos y limpiando backend/node_modules..."
-  sudo chown -R ec2-user:ec2-user backend
-  sudo find backend -type d -exec chmod u+rwx,go+rx {} \\;
-  sudo find backend -type f -exec chmod u+rw,go+r {} \\;
-  sudo rm -rf backend/node_modules
+  echo "=== Limpiando procesos PM2 existentes ==="
+  pm2 delete all 2>/dev/null || true
 
-  echo ">> Forzando sincronización con GitHub..."
-  git fetch origin main
-  git reset --hard origin/main
-  git clean -fd
-
-  echo ">> Backend: instalando dependencias..."
+  echo "=== Backend: limpiando node_modules y reinstalando ==="
   cd backend
-  npm install
+  rm -rf node_modules package-lock.json 2>/dev/null
+  npm install --silent --no-warnings 2>/dev/null
 
-  echo ">> Backend: reconstruyendo bcrypt para Linux..."
-  npm rebuild bcrypt --build-from-source || echo "ADVERTENCIA: Falló npm rebuild bcrypt, revisa logs si hay problemas de bcrypt"
+  echo "=== Backend: reconstruyendo bcrypt para Linux ==="
+  npm rebuild bcrypt --build-from-source 2>/dev/null || true
 
-  echo ">> Backend: ejecutando tests..."
-  npm run test:ci || echo "ADVERTENCIA: Tests del backend fallaron"
+  echo "=== Backend: iniciando con PM2 ==="
+  pm2 start index.js --name backend 2>/dev/null || pm2 restart backend 2>/dev/null
 
-  echo ">> Reiniciando backend con PM2..."
-  pm2 restart backend || pm2 start index.js --name backend
-  pm2 save
-
-  echo ">> Frontend: construyendo producción..."
+  echo "=== Frontend: instalando dependencias ==="
   cd ../frontend
-  npm install
+  npm install --silent --no-warnings 2>/dev/null
 
-  echo ">> Frontend: ejecutando tests..."
-  npm run test:ci || echo "ADVERTENCIA: Tests del frontend fallaron"
+  echo "=== Frontend: construyendo produccion ==="
+  npm run build --silent 2>/dev/null
 
-  npm run build
-
-  echo ">> Reiniciando frontend con PM2..."
+  echo "=== Frontend: iniciando con PM2 en puerto 80 ==="
   cd dist
-  pm2 restart frontend || pm2 start "npx serve -s . -l 80" --name frontend
-  pm2 save
+  pm2 start "npx serve -s . -l 80" --name frontend 2>/dev/null || pm2 restart frontend 2>/dev/null
 
-  echo ">> DEPLOY COMPLETADO EXITOSAMENTE"
+  echo "=== Guardando configuracion de PM2 ==="
+  pm2 save 2>/dev/null
+
+  echo "=== Estado actual de PM2 ==="
+  pm2 status 2>/dev/null
+
+  echo "=== Verificando logs del backend ==="
+  pm2 logs backend --lines 5 --nostream 2>/dev/null
+
+  echo "=== Proceso completado ==="
 EOF
                     '''
                 }
@@ -258,9 +253,9 @@ EOF
     post {
         success {
             echo """
-            ═══════════════════════════════════════
-            PIPELINE COMPLETADO CON ÉXITO
-            ═══════════════════════════════════════
+            =======================================
+            PIPELINE COMPLETADO CON EXITO
+            =======================================
             
             Tests ejecutados:
             - Backend: Ver reporte en Jenkins
@@ -270,19 +265,19 @@ EOF
             Deploy exitoso en EC2
             
             Build: #${env.BUILD_NUMBER}
-            ═══════════════════════════════════════
+            =======================================
             """
         }
         failure {
             echo """
-            ═══════════════════════════════════════
-            PIPELINE FALLÓ
-            ═══════════════════════════════════════
+            =======================================
+            PIPELINE FALLO
+            =======================================
             
             Build: #${env.BUILD_NUMBER}
-            Revisar logs para más detalles
+            Revisar logs para mas detalles
             
-            ═══════════════════════════════════════
+            =======================================
             """
         }
     }
