@@ -18,25 +18,26 @@ function Login({ onLoginSuccess }) {
   
   // Referencia para el botón de Google
   const googleButtonRef = useRef(null);
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
   // Función para manejar la respuesta de Google
 const handleCredentialResponse = (response) => {
-  console.log(" Credential de Google:", response);
+  console.log("Credential de Google:", response);
 
   fetch(`${API_URL}/api/auth/google`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ credential: response.credential }),
   })
-    .then(async (backendRes) => {
-      if (!backendRes.ok) {
-        const errText = await backendRes.text();
+    .then(async (res) => {   // AQUÍ va res
+      if (!res.ok) {
+        const errText = await res.text();
         console.error("Error backend Google:", errText);
         setMensaje("Error al autenticar con Google");
         return;
       }
 
-      const data = await backendRes.json();
+      const data = await res.json();
       console.log("Usuario desde backend:", data);
 
       const rawUser = data.user || data;
@@ -44,10 +45,10 @@ const handleCredentialResponse = (response) => {
 
       const user = {
         ...rawUser,
-        role: "administrador", //  siempre admin si viene de Google
+        role: "administrador",
       };
 
-      console.log(" Usuario final que se guarda:", user);
+      console.log("Usuario final que se guarda:", user);
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
@@ -59,7 +60,7 @@ const handleCredentialResponse = (response) => {
         setMensaje("");
 
         if (onLoginSuccess) {
-          onLoginSuccess(user); // App.jsx espera el usuario directo
+          onLoginSuccess(user);
         }
       }, 1500);
     })
@@ -68,6 +69,7 @@ const handleCredentialResponse = (response) => {
       setMensaje("No se pudo conectar al backend de Google login");
     });
 };
+
 
 
   function initializeGoogle() {
@@ -113,53 +115,54 @@ const handleCredentialResponse = (response) => {
     }
   }, [activeModal]);
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    setMensaje("");
+const handleLoginSubmit = async (e) => {
+  e.preventDefault();
+  setMensaje("");
 
-    if (!username || !password) {
-      setMensaje("Por favor completa todos los campos");
-      return;
+  if (!username || !password) {
+    setMensaje("Por favor completa todos los campos");
+    return;
+  }
+
+  if (username.length < 3 || password.length < 4) {
+    setMensaje(
+      "Usuario debe tener al menos 3 caracteres y la contrasena al menos 4"
+    );
+    return;
+  }
+
+  try {
+    setCargando(true);
+
+    const resp = await fetch(`${API_URL}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await resp.json(); // 👈 AQUÍ EL CAMBIO
+
+    if (resp.ok && data.ok) {
+      setMensaje(data.message || "Inicio de sesion correctamente");
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setTimeout(() => {
+        setActiveModal(null);
+        setMensaje("");
+        if (onLoginSuccess) {
+          onLoginSuccess(data.user);
+        }
+      }, 1500);
+    } else {
+      setMensaje(data.message || "Usuario o contrasena incorrectos");
     }
+  } catch (error) {
+    console.error(error);
+    setMensaje("Error al conectar con el servidor");
+  } finally {
+    setCargando(false);
+  }
+};
 
-    if (username.length < 3 || password.length < 4) {
-      setMensaje(
-        "Usuario debe tener al menos 3 caracteres y la contrasena al menos 4"
-      );
-      return;
-    }
-
-    try {
-      setCargando(true);
-
-      const resp = await fetch(`${API_URL}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await res.json();
-
-      if (resp.ok && data.ok) {
-        setMensaje(data.message || "Inicio de sesion correctamente");
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setTimeout(() => {
-          setActiveModal(null);
-          setMensaje("");
-          if (onLoginSuccess) {
-            onLoginSuccess(data.user);
-          }
-        }, 1500);
-      } else {
-        setMensaje(data.message || "Usuario o contrasena incorrectos");
-      }
-    } catch (error) {
-      console.error(error);
-      setMensaje("Error al conectar con el servidor");
-    } finally {
-      setCargando(false);
-    }
-  };
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
