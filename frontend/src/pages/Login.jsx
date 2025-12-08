@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import API_URL from "../config/api";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 import "./Login.css";
 
 function Login({ onLoginSuccess }) {
@@ -14,6 +15,19 @@ function Login({ onLoginSuccess }) {
   const [registerRole, setRegisterRole] = useState("alumno");
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
+
+  const handleGoogleSuccess = (data) => {
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    setMensaje("Inicio de sesion con Google exitoso");
+    setTimeout(() => {
+      setActiveModal(null);
+      setMensaje("");
+      if (onLoginSuccess) {
+        onLoginSuccess(data.user);
+      }
+    }, 1500);
+  };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -217,7 +231,7 @@ function Login({ onLoginSuccess }) {
             <div className="modal-header-section">
               <div className="modal-icon-text">Inicio de Sesion</div>
               <button className="close-button" onClick={closeModal} aria-label="Cerrar">
-                <span className="close-icon">×</span>
+                <span className="close-icon">x</span>
               </button>
               
               <div className="modal-header">
@@ -276,10 +290,20 @@ function Login({ onLoginSuccess }) {
               </button>
             </form>
 
+            <div className="google-login-separator">
+              <span className="separator-line"></span>
+              <span className="separator-text">o continua con</span>
+              <span className="separator-line"></span>
+            </div>
+
+            <div className="google-login-container">
+              <GoogleLoginButton onSuccess={handleGoogleSuccess} />
+            </div>
+
             {mensaje && (
-              <div className={`message ${mensaje.includes("correctamente") ? 'success' : 'error'}`}>
+              <div className={`message ${mensaje.includes("correctamente") || mensaje.includes("exitoso") ? 'success' : 'error'}`}>
                 <div className="message-icon">
-                  {mensaje.includes("correctamente") ? "✓" : "!"}
+                  {mensaje.includes("correctamente") || mensaje.includes("exitoso") ? "+" : "!"}
                 </div>
                 <div className="message-text">{mensaje}</div>
               </div>
@@ -309,7 +333,7 @@ function Login({ onLoginSuccess }) {
             <div className="modal-header-section">
               <div className="modal-icon-text">Crear Cuenta</div>
               <button className="close-button" onClick={closeModal} aria-label="Cerrar">
-                <span className="close-icon">×</span>
+                <span className="close-icon">x</span>
               </button>
               
               <div className="modal-header">
@@ -499,7 +523,7 @@ function Login({ onLoginSuccess }) {
             {mensaje && (
               <div className={`message ${mensaje.includes("exitoso") ? 'success' : 'error'}`}>
                 <div className="message-icon">
-                  {mensaje.includes("exitoso") ? "✓" : "!"}
+                  {mensaje.includes("exitoso") ? "+" : "!"}
                 </div>
                 <div className="message-text">{mensaje}</div>
               </div>

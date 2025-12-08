@@ -1,0 +1,26 @@
+/* Estilos para el separador de Google Login */
+.google-login-separator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.separator-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Contenedor del boton de Google */
+.google-login-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
