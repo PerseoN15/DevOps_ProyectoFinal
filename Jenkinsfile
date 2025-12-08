@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_DIR = "frontend"
+        APP_DIR     = "frontend"
         BACKEND_DIR = "backend"
     }
 
@@ -25,18 +25,18 @@ pipeline {
                         }
                     }
                 }
-        stage('Dependencias Backend') {
-            steps {
-            dir("${BACKEND_DIR}") {
-                echo "Instalando dependencias del backend..."
-                sh "npm install"
-
-                echo "Reconstruyendo bcrypt para entorno Linux (si aplica)..."
-                sh "npm rebuild bcrypt --build-from-source || true"
+                stage('Dependencias Backend') {
+                    steps {
+                        dir("${BACKEND_DIR}") {
+                            echo "Instalando dependencias del backend..."
+                            sh "npm install"
+                            echo "Reconstruyendo bcrypt para entorno Linux (si aplica)..."
+                            sh "npm rebuild bcrypt --build-from-source || true"
+                        }
+                    }
+                }
+            }
         }
-    }
-}
-
 
         stage('Tests') {
             parallel {
@@ -222,6 +222,9 @@ ssh -o StrictHostKeyChecking=no ec2-user@3.15.205.151 << 'EOF'
   echo ">> Backend: instalando dependencias..."
   cd backend
   npm install
+
+  echo ">> Backend: reconstruyendo bcrypt para Linux..."
+  npm rebuild bcrypt --build-from-source || echo "ADVERTENCIA: Falló npm rebuild bcrypt, revisa logs si hay problemas de bcrypt"
 
   echo ">> Backend: ejecutando tests..."
   npm run test:ci || echo "ADVERTENCIA: Tests del backend fallaron"
